@@ -15,4 +15,8 @@ data class EarthQuake(
     val mw: String,
     val place: String,
     val resolution: String
-)
+) {
+    override fun toString(): String {
+        return "EarthQuake(date='$date', hour='$hour', lat='$lat', long='$long', depth='$depth', md='$md', ml='$ml', mw='$mw', place='$place', resolution='$resolution')"
+    }
+}
