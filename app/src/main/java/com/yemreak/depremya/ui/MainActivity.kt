@@ -10,26 +10,29 @@ import com.yemreak.depremya.entity.EarthQuake
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-	val quakes = ArrayList<EarthQuake>()
+	//val quakes = List<EarthQuake>()
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-
-		quake_recycler_view.layoutManager = LinearLayoutManager(this)
-		getData()
-		quake_recycler_view.adapter = QuakeAdapter(quakes)
+		initRecyclerView()
 	}
 
-	fun getData() {
-		val quake = EarthQuake("2020.01.28", "21:31:32", "39.0787", "27.8380", "5.4", "-.-",  "0.5",  "-.-", "ILYASLAR-KIRKAGAC (MANISA)","İlksel")
-		quakes.add(quake)
-		quakes.add(quake)
-		quakes.add(quake)
-		quakes.add(quake)
-		quakes.add(quake)
-		quakes.add(quake)
-		quakes.add(quake)
+	private fun initRecyclerView(){
+		quake_recycler_view.layoutManager = LinearLayoutManager(this)
+		quake_recycler_view.adapter = QuakeAdapter(getData())
+	}
 
+	private fun getData() : List<EarthQuake> {
+		// Deneme amaçlıdır 👩‍🔬
+		val quake = EarthQuake("2020.01.28", "21:31:32", "39.0787", "27.8380", "5.4", "-.-",  "0.5",  "-.-", "ILYASLAR-KIRKAGAC (MANISA)","İlksel")
+		val quakes : List<EarthQuake> = arrayListOf<EarthQuake>().apply{
+			add(quake)
+			add(quake)
+			add(quake)
+			add(quake)
+			add(quake)
+		}
+		return quakes
 	}
 
 }

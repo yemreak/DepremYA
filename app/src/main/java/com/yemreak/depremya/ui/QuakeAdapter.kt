@@ -11,7 +11,7 @@ import com.yemreak.depremya.R
 import com.yemreak.depremya.entity.EarthQuake
 import kotlinx.android.synthetic.main.earthquake_item.view.*
 
-class QuakeAdapter(val quakes: ArrayList<EarthQuake>):
+class QuakeAdapter(val quakes: List<EarthQuake>):
     RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuakeAdapter.QuakeHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.earthquake_item, parent, false)
