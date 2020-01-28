@@ -22,6 +22,7 @@ class QuakeAdapter(val quakes: ArrayList<EarthQuake>):
         holder.dateTV.text = quakes[position].date
         holder.hourTV.text = quakes[position].hour
         holder.depthTV.text = quakes[position].depth
+        holder.longTV.text = quakes[position].long
         holder.mdTV.text = quakes[position].md
         holder.mlTV.text = quakes[position].ml
         holder.mwTV.text = quakes[position].mw
@@ -35,6 +36,7 @@ class QuakeAdapter(val quakes: ArrayList<EarthQuake>):
         val dateTV: TextView = itemView.findViewById(R.id.quake_item_date)
         val hourTV: TextView = itemView.findViewById(R.id.quake_item_hour)
         val depthTV: TextView = itemView.findViewById(R.id.quake_item_depth)
+        val longTV: TextView = itemView.findViewById(R.id.quake_item_long)
         val mdTV: TextView = itemView.findViewById(R.id.quake_item_md)
         val mlTV: TextView = itemView.findViewById(R.id.quake_item_ml)
         val mwTV: TextView = itemView.findViewById(R.id.quake_item_mw)
