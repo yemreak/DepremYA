@@ -30,7 +30,7 @@
             android:textStyle="bold" />
 
         <ProgressBar
-            android:id="@+id/splashProgress"
+            android:id="@+id/pbSplash"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
