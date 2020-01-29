@@ -6,4 +6,6 @@
     <string name="quake_string_mw">MW: %s</string>
     <string name="quake_string_place">Yer: %s</string>
     <string name="quake_string_resolution">Nitelik: %s</string>
+    <string name="splash_title">DepremYA</string>
+    <string name="license">Yunus Emre Ak ~ Asmaa Mirkhan \n The Appache License 2.0</string>
 </resources>
