@@ -43,7 +43,9 @@
                     android:id="@+id/quake_item_hour"
                     android:text="SAAT"
                     android:textSize="18sp"
-                    android:fontFamily="@font/montserrat_bold" />
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_centerVertical="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -52,7 +54,8 @@
                     android:text="TARIH"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/montserrat"
-                    android:textSize="16sp" />
+                    android:textSize="12sp"
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <TextView
@@ -89,34 +92,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/quake_item_md"
-                    android:text="MD"
-                    android:fontFamily="@font/robotoslab_semibold"
-                    android:textSize="14sp" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/quake_item_long"
-                    android:text="LONG"
-                    android:fontFamily="@font/robotoslab_semibold"
-                    android:textSize="14sp" />
 
-                <TextView
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/quake_item_long"
+                        android:text="LONG"
+                        android:fontFamily="@font/robotoslab_semibold"
+                        android:textSize="14sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/quake_item_md"
+                            android:text="MD"
+                            android:fontFamily="@font/robotoslab_semibold"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/quake_item_mw"
+                            android:text="MW"
+                            android:fontFamily="@font/robotoslab_semibold"
+                            android:textSize="14sp"
+                            android:layout_centerInParent="true" />
+
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/quake_item_mw"
-                    android:text="MW"
-                    android:layout_alignParentEnd="true"
-                    android:fontFamily="@font/robotoslab_semibold"
-                    android:textSize="14sp" />
+                    android:src="@drawable/ic_baseline_map_24"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
-
         </LinearLayout>
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>
