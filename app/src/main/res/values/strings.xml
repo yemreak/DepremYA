@@ -6,5 +6,4 @@
     <string name="quake_string_mw">MW: %s</string>
     <string name="quake_string_place">Yer: %s</string>
     <string name="quake_string_resolution">Nitelik: %s</string>
-    <string name="quake_string_long">Long: %s</string>
 </resources>

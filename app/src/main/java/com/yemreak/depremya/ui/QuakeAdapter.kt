@@ -24,7 +24,6 @@ class QuakeAdapter(val context: Context, val quakes: List<EarthQuake>) :
         holder.dateTV.text = quakes[position].date
         holder.hourTV.text = context.getString(R.string.quake_string_hour, quakes[position].hour)
         holder.depthTV.text = context.getString(R.string.quake_string_depth, quakes[position].depth)
-        holder.longTV.text = context.getString(R.string.quake_string_long, quakes[position].long)
         holder.mdTV.text = context.getString(R.string.quake_string_md, quakes[position].md)
         holder.mlTV.text = quakes[position].ml
         holder.mwTV.text = context.getString(R.string.quake_string_mw, quakes[position].mw)
@@ -37,7 +36,9 @@ class QuakeAdapter(val context: Context, val quakes: List<EarthQuake>) :
                 "http://maps.google.com/maps?q=loc:${quakes[position].lat},${quakes[position].long}(${quakes[position].place})"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             intent.setPackage("com.google.android.apps.maps")
-            context.startActivity(intent)
+            if (intent.resolveActivity(context.packageManager) != null)
+                context.startActivity(intent)
+
         }
     }
 
@@ -47,7 +48,6 @@ class QuakeAdapter(val context: Context, val quakes: List<EarthQuake>) :
         val dateTV: TextView = itemView.findViewById(R.id.quake_item_date)
         val hourTV: TextView = itemView.findViewById(R.id.quake_item_hour)
         val depthTV: TextView = itemView.findViewById(R.id.quake_item_depth)
-        val longTV: TextView = itemView.findViewById(R.id.quake_item_long)
         val mdTV: TextView = itemView.findViewById(R.id.quake_item_md)
         val mlTV: TextView = itemView.findViewById(R.id.quake_item_ml)
         val mwTV: TextView = itemView.findViewById(R.id.quake_item_mw)

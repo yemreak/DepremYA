@@ -78,14 +78,7 @@
                     android:textSize="16sp"
                     android:fontFamily="@font/ubuntu_regular" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/quake_item_resolution"
-                    android:text="NITELIK"
-                    android:layout_alignParentEnd="true"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/ubuntu_regular" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -97,14 +90,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/quake_item_long"
-                        android:text="LONG"
-                        android:fontFamily="@font/ubuntu_regular"
-                        android:textSize="16sp" />
+                        android:id="@+id/quake_item_resolution"
+                        android:text="NITELIK"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/ubuntu_regular" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
