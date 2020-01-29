@@ -38,8 +38,8 @@ class QuakeAdapter(val context: Context, val quakes: List<EarthQuake>) :
             intent.setPackage("com.google.android.apps.maps")
             if (intent.resolveActivity(context.packageManager) != null)
                 context.startActivity(intent)
-
         }
+
     }
 
     override fun getItemCount() = quakes.size
