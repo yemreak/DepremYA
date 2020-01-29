@@ -23,7 +23,7 @@
             android:gravity="center"
             android:background="@drawable/magnitude_background"
             android:textColor="@color/colorPrimaryText"
-            android:id="@+id/quake_item_ml"
+            android:id="@+id/tvMl"
             android:textSize="18sp"
             android:fontFamily="@font/montserrat_bold" />
 
@@ -40,7 +40,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/quake_item_hour"
+                    android:id="@+id/tvHour"
                     android:text="SAAT"
                     android:textSize="18sp"
                     android:textColor="@color/colorPrimary"
@@ -50,7 +50,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/quake_item_date"
+                    android:id="@+id/tvDate"
                     android:text="TARIH"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/montserrat"
@@ -61,7 +61,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/quake_item_place"
+                android:id="@+id/tvCity"
                 android:text="YER"
                 android:textSize="16sp"
                 android:fontFamily="@font/fira_medium" />
@@ -73,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/quake_item_depth"
+                    android:id="@+id/tvDepth"
                     android:text="DERINLIK"
                     android:textSize="16sp"
                     android:fontFamily="@font/ubuntu_regular" />
@@ -93,7 +93,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/quake_item_resolution"
+                        android:id="@+id/tvResolution"
                         android:text="NITELIK"
                         android:textSize="16sp"
                         android:fontFamily="@font/ubuntu_regular" />
@@ -106,7 +106,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/quake_item_md"
+                            android:id="@+id/tvMd"
                             android:text="MD"
                             android:fontFamily="@font/ubuntu_regular"
                             android:textSize="16sp" />
@@ -114,7 +114,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/quake_item_mw"
+                            android:id="@+id/tvMw"
                             android:text="MW"
                             android:fontFamily="@font/ubuntu_regular"
                             android:textSize="16sp"
@@ -128,7 +128,7 @@
                     android:src="@drawable/ic_baseline_map_24"
                     android:background="?android:attr/selectableItemBackground"
                     android:layout_alignParentEnd="true"
-                    android:id="@+id/quake_item_location" />
+                    android:id="@+id/ibLocation" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
