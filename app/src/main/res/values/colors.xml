@@ -11,8 +11,4 @@
     <color name="colorSecondaryText">#ffffff</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
-
-    <color name="heavyQuake">#7f0000</color>
-    <color name="normalQuake">#b71c1c</color>
-    <color name="lightQuake">#f05545</color>
 </resources>
