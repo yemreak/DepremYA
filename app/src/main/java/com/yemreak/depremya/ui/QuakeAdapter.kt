@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yemreak.depremya.R
 import com.yemreak.depremya.entity.EarthQuake
+import kotlinx.android.synthetic.main.quake_item.view.*
 
 class QuakeAdapter(val context: Context, val quakes: List<EarthQuake>) :
     RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
@@ -21,19 +22,19 @@ class QuakeAdapter(val context: Context, val quakes: List<EarthQuake>) :
     }
 
     override fun onBindViewHolder(holder: QuakeAdapter.QuakeHolder, position: Int) {
-        holder.dateTV.text = quakes[position].date
-        holder.hourTV.text = context.getString(R.string.quake_string_hour, quakes[position].hour)
-        holder.depthTV.text = context.getString(R.string.quake_string_depth, quakes[position].depth)
-        holder.mdTV.text = context.getString(R.string.quake_string_md, quakes[position].md)
-        holder.mlTV.text = quakes[position].ml
-        holder.mwTV.text = context.getString(R.string.quake_string_mw, quakes[position].mw)
-        holder.placeTV.text = context.getString(R.string.quake_string_place, quakes[position].place)
-        holder.resolutionTV.text =
+        holder.tvDate.text = quakes[position].date
+        holder.tvHour.text = context.getString(R.string.quake_string_hour, quakes[position].hour)
+        holder.tvDepth.text = context.getString(R.string.quake_string_depth, quakes[position].depth)
+        holder.tvMd.text = context.getString(R.string.quake_string_md, quakes[position].md)
+        holder.tvMl.text = quakes[position].ml
+        holder.tvMw.text = context.getString(R.string.quake_string_mw, quakes[position].mw)
+        holder.tvCity.text = context.getString(R.string.quake_string_place, quakes[position].city)
+        holder.tvResolution.text =
             context.getString(R.string.quake_string_resolution, quakes[position].resolution)
 
-        holder.locationImgBtn.setOnClickListener {
+        holder.ibLocation.setOnClickListener {
             val uri =
-                "http://maps.google.com/maps?q=loc:${quakes[position].lat},${quakes[position].long}(${quakes[position].place})"
+                "http://maps.google.com/maps?q=loc:${quakes[position].lat},${quakes[position].long}(${quakes[position].city})"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             intent.setPackage("com.google.android.apps.maps")
             if (intent.resolveActivity(context.packageManager) != null)
@@ -45,15 +46,15 @@ class QuakeAdapter(val context: Context, val quakes: List<EarthQuake>) :
     override fun getItemCount() = quakes.size
 
     class QuakeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val dateTV: TextView = itemView.findViewById(R.id.quake_item_date)
-        val hourTV: TextView = itemView.findViewById(R.id.quake_item_hour)
-        val depthTV: TextView = itemView.findViewById(R.id.quake_item_depth)
-        val mdTV: TextView = itemView.findViewById(R.id.quake_item_md)
-        val mlTV: TextView = itemView.findViewById(R.id.quake_item_ml)
-        val mwTV: TextView = itemView.findViewById(R.id.quake_item_mw)
-        val placeTV: TextView = itemView.findViewById(R.id.quake_item_place)
-        val resolutionTV: TextView = itemView.findViewById(R.id.quake_item_resolution)
-        val locationImgBtn: ImageButton = itemView.findViewById(R.id.quake_item_location)
+        val tvDate: TextView = itemView.tvDate
+        val tvHour: TextView = itemView.tvHour
+        val tvDepth: TextView = itemView.tvDepth
+        val tvMd: TextView = itemView.tvMd
+        val tvMl: TextView = itemView.tvMl
+        val tvMw: TextView = itemView.tvMw
+        val tvCity: TextView = itemView.tvCity
+        val tvResolution: TextView = itemView.tvResolution
+        val ibLocation: ImageButton = itemView.ibLocation
     }
 
 }

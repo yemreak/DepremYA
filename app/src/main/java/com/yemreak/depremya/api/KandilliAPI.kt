@@ -7,6 +7,8 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.yemreak.depremya.entity.EarthQuake
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 abstract class KandilliAPI {
@@ -34,7 +36,7 @@ abstract class KandilliAPI {
             val queue = Volley.newRequestQueue(context)
             val stringRequest = StringRequest(Request.Method.GET, URL,
                 Response.Listener<String> { response ->
-                    onResponse(parseResponse(response))
+                    onResponse(parseResponse(response.replace("Ý", "İ")))
                 },
                 Response.ErrorListener {
                     Log.e(
@@ -62,6 +64,16 @@ abstract class KandilliAPI {
         }
 
         private fun parseLine(line: String): EarthQuake {
+            var city: String = ""
+            var region: String = ""
+
+            line.slice(mwsIndex..placesIndex).trim().split(" ").let {
+                city = it.last().replace("(", "").replace(")", "").run {
+                    this[0] + this.slice(1 until length).toLowerCase(Locale.ROOT)
+                }
+                if (it.size > 1) region = it.first()
+            }
+
             return EarthQuake(
                 line.slice(0..indexDates).trim(),
                 line.slice(indexDates..indexHours).trim(),
@@ -71,7 +83,8 @@ abstract class KandilliAPI {
                 line.slice(depthIndex..mdsIndex).trim(),
                 line.slice(mdsIndex..mlsIndex).trim(),
                 line.slice(mlsIndex..mwsIndex).trim(),
-                line.slice(mwsIndex..placesIndex).trim(),
+                city,
+                region,
                 line.slice(placesIndex until line.length).trim()
             )
         }

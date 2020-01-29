@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun runProgressBar() {
-        ObjectAnimator.ofInt(splashProgress, "progress", 100).setDuration(SPLASH_TIME.toLong())
+        ObjectAnimator.ofInt(pbSplash, "progress", 100).setDuration(SPLASH_TIME.toLong())
             .start()
     }
 }
