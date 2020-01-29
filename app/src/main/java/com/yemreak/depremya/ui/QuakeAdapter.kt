@@ -2,6 +2,7 @@ package com.yemreak.depremya.ui
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.view.LayoutInflater
@@ -16,6 +17,10 @@ import kotlinx.android.synthetic.main.quake_item.view.*
 
 class QuakeAdapter(val context: Context, val quakes: List<EarthQuake>) :
     RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
+    val MAX_COLOR = 255
+    val MAX_GREEN = 25
+    val MAX_BLUE = 25
+    val COLOR_FACTOR = 25
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuakeAdapter.QuakeHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.quake_item, parent, false)
@@ -42,17 +47,12 @@ class QuakeAdapter(val context: Context, val quakes: List<EarthQuake>) :
                 context.startActivity(intent)
         }
 
-        var quakeColor = R.color.lightQuake
-        when (quakes[position].ml.toDouble()) {
-            in 0..4 -> quakeColor = R.color.lightQuake
-            in 4..6 -> quakeColor = R.color.normalQuake
-            else -> {
-                quakeColor = R.color.heavyQuake
-            }
-        }
-
         holder.tvMl.background.setColorFilter(
-            context.resources.getColor(quakeColor),
+            Color.rgb(
+                MAX_COLOR - (quakes[position].ml.toDouble()).toInt() * COLOR_FACTOR,
+                MAX_GREEN,
+                MAX_BLUE
+            ),
             PorterDuff.Mode.SRC_IN
         )
 
