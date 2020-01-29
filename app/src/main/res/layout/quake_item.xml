@@ -64,7 +64,7 @@
                 android:id="@+id/quake_item_place"
                 android:text="YER"
                 android:textSize="16sp"
-                android:fontFamily="@font/muli" />
+                android:fontFamily="@font/fira_medium" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                     android:id="@+id/quake_item_depth"
                     android:text="DERINLIK"
                     android:textSize="16sp"
-                    android:fontFamily="@font/muli" />
+                    android:fontFamily="@font/ubuntu_regular" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                     android:text="NITELIK"
                     android:layout_alignParentEnd="true"
                     android:textSize="16sp"
-                    android:fontFamily="@font/muli" />
+                    android:fontFamily="@font/ubuntu_regular" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -103,8 +103,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/quake_item_long"
                         android:text="LONG"
-                        android:fontFamily="@font/robotoslab_semibold"
-                        android:textSize="14sp" />
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:textSize="16sp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -116,16 +116,16 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/quake_item_md"
                             android:text="MD"
-                            android:fontFamily="@font/robotoslab_semibold"
-                            android:textSize="14sp" />
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/quake_item_mw"
                             android:text="MW"
-                            android:fontFamily="@font/robotoslab_semibold"
-                            android:textSize="14sp"
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:textSize="16sp"
                             android:layout_centerInParent="true" />
 
 
