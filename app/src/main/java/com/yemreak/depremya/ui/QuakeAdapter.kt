@@ -2,6 +2,7 @@ package com.yemreak.depremya.ui
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +41,20 @@ class QuakeAdapter(val context: Context, val quakes: List<EarthQuake>) :
             if (intent.resolveActivity(context.packageManager) != null)
                 context.startActivity(intent)
         }
+
+        var quakeColor = R.color.lightQuake
+        when (quakes[position].ml.toDouble()) {
+            in 0..4 -> quakeColor = R.color.lightQuake
+            in 4..6 -> quakeColor = R.color.normalQuake
+            else -> {
+                quakeColor = R.color.heavyQuake
+            }
+        }
+
+        holder.tvMl.background.setColorFilter(
+            context.resources.getColor(quakeColor),
+            PorterDuff.Mode.SRC_IN
+        )
 
     }
 
