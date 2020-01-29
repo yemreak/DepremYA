@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         quake_recycler_view.layoutManager = LinearLayoutManager(this)
         KandilliAPI.requestEarthQuakes(this) {
-            quake_recycler_view.adapter = QuakeAdapter(it)
+            quake_recycler_view.adapter = QuakeAdapter(this, it)
         }
     }
 

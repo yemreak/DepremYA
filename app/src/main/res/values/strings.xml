@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">DepremYA</string>
+    <string name="quake_string_hour">Saat: %s</string>
+    <string name="quake_string_depth">Derinlik: %s km</string>
+    <string name="quake_string_md">MD: %s</string>
+    <string name="quake_string_mw">MW: %s</string>
+    <string name="quake_string_place">Yer: %s</string>
+    <string name="quake_string_resolution">Nitelik: %s</string>
+    <string name="quake_string_long">Long: %s</string>
 </resources>

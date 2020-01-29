@@ -1,5 +1,6 @@
 package com.yemreak.depremya.ui
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yemreak.depremya.R
 import com.yemreak.depremya.entity.EarthQuake
 
-class QuakeAdapter(val quakes: List<EarthQuake>):
+class QuakeAdapter(val context: Context,val quakes: List<EarthQuake>):
     RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuakeAdapter.QuakeHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.quake_item, parent, false)
@@ -17,14 +18,14 @@ class QuakeAdapter(val quakes: List<EarthQuake>):
 
     override fun onBindViewHolder(holder: QuakeAdapter.QuakeHolder, position: Int) {
         holder.dateTV.text = quakes[position].date
-        holder.hourTV.text = quakes[position].hour
-        holder.depthTV.text = quakes[position].depth
-        holder.longTV.text = quakes[position].long
-        holder.mdTV.text = quakes[position].md
+        holder.hourTV.text = context.getString(R.string.quake_string_hour, quakes[position].hour)
+        holder.depthTV.text = context.getString(R.string.quake_string_depth, quakes[position].depth)
+        holder.longTV.text = context.getString(R.string.quake_string_long, quakes[position].long)
+        holder.mdTV.text = context.getString(R.string.quake_string_md, quakes[position].md)
         holder.mlTV.text = quakes[position].ml
-        holder.mwTV.text = quakes[position].mw
-        holder.placeTV.text = quakes[position].place
-        holder.resolutionTV.text = quakes[position].resolution
+        holder.mwTV.text = context.getString(R.string.quake_string_mw, quakes[position].mw)
+        holder.placeTV.text = context.getString(R.string.quake_string_place, quakes[position].place)
+        holder.resolutionTV.text = context.getString(R.string.quake_string_resolution, quakes[position].resolution)
     }
 
     override fun getItemCount() = quakes.size
