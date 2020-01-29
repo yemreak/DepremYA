@@ -127,8 +127,6 @@
                             android:fontFamily="@font/ubuntu_regular"
                             android:textSize="16sp"
                             android:layout_centerInParent="true" />
-
-
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -137,7 +135,8 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_map_24"
                     android:background="?android:attr/selectableItemBackground"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/quake_item_location" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
