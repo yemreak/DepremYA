@@ -55,18 +55,18 @@ class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
         )
     }
 
-    fun generateMagColor(mag: Double): Int {
-        when {
-            mag < 3 -> return R.color.quake0_3
-            mag > 3 && mag < 4 -> return R.color.quake3_4
-            mag > 4 && mag < 5 -> return R.color.quake4_5
-            mag > 5 && mag < 5.5 -> return R.color.quake5_5h
-            mag > 5.5 && mag < 6 -> return R.color.quake5h_6
-            mag > 6 && mag < 6.5 -> return R.color.quake6_6h
-            mag > 6.5 && mag < 7 -> return R.color.quake6h_7
-            mag > 7 && mag < 8 -> return R.color.quake7_8
+    private fun generateMagColor(mag: Double): Int {
+        return when {
+            mag < 3 -> R.color.quake0_3
+            mag >= 3 && mag < 4 -> R.color.quake3_4
+            mag >= 4 && mag < 5 -> R.color.quake4_5
+            mag >= 5 && mag < 5.5 -> R.color.quake5_5h
+            mag >= 5.5 && mag < 6 -> R.color.quake5h_6
+            mag >= 6 && mag < 6.5 -> R.color.quake6_6h
+            mag >= 6.5 && mag < 7 -> R.color.quake6h_7
+            mag >= 7 && mag < 8 -> R.color.quake7_8
             else -> {
-                return R.color.quakeMax
+                R.color.quakeMax
             }
         }
     }
