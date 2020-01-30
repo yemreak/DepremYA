@@ -13,15 +13,15 @@
 	<color name="colorDivider">#BDBDBD</color>
 	<color name="background">#e8eaf6</color>
 	<!-- 0 - 3 -->
-	<color name="quake0_3">#c0c4f2</color>
+	<color name="quake0_3">#85D979</color>
 	<!-- 3 - 4 -->
-	<color name="quake3_4">#f7a9a1</color>
+	<color name="quake3_4">#F1E071</color>
 	<!-- 4 - 5 -->
-	<color name="quake4_5">#f47e71</color>
+	<color name="quake4_5">#F1CC71</color>
 	<!-- 5 - 5.5 -->
-	<color name="quake5_5h">#f2695a</color>
+	<color name="quake5_5h">#F1B371</color>
 	<!-- 5.5 - 6 -->
-	<color name="quake5h_6">#f05545</color>
+	<color name="quake5h_6">#F19A71</color>
 	<!-- 6 - 6.5 -->
 	<color name="quake6_6h">#ee3e2b</color>
 	<!-- 6.5 - 7 -->
