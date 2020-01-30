@@ -25,7 +25,7 @@ class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
             LayoutInflater.from(parent.context).inflate(R.layout.quake_item, parent, false)
         return QuakeHolder(view)
     }
-    
+
     override fun onBindViewHolder(holder: QuakeAdapter.QuakeHolder, position: Int) {
         holder.tvDate.text = quakes[position].date
         holder.tvHour.text = context.getString(R.string.str_hour, quakes[position].hour)
@@ -40,7 +40,7 @@ class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
             holder.tvRegion.text = context.getString(R.string.str_region, quakes[position].region)
         holder.tvResolution.text =
             context.getString(R.string.str_resolution, quakes[position].resolution)
-        
+
         holder.ibLocation.setOnClickListener {
             val uri =
                 "http://maps.google.com/maps?q=loc:${quakes[position].lat},${quakes[position].long}(${quakes[position].city})"
@@ -54,25 +54,25 @@ class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
             PorterDuff.Mode.SRC_IN
         )
     }
-    
+
     private fun generateMagColor(mag: Double): Int {
         return when {
             mag < 3 -> R.color.quake0_3
-            mag > 3 && mag < 4 -> R.color.quake3_4
-            mag > 4 && mag < 5 -> R.color.quake4_5
-            mag > 5 && mag < 5.5 -> R.color.quake5_5h
-            mag > 5.5 && mag < 6 -> R.color.quake5h_6
-            mag > 6 && mag < 6.5 -> R.color.quake6_6h
-            mag > 6.5 && mag < 7 -> R.color.quake6h_7
-            mag in 7..8 -> R.color.quake7_8
+            mag >= 3 && mag < 4 -> R.color.quake3_4
+            mag >= 4 && mag < 5 -> R.color.quake4_5
+            mag >= 5 && mag < 5.5 -> R.color.quake5_5h
+            mag >= 5.5 && mag < 6 -> R.color.quake5h_6
+            mag >= 6 && mag < 6.5 -> R.color.quake6_6h
+            mag >= 6.5 && mag < 7 -> R.color.quake6h_7
+            mag >= 7 && mag < 8 -> R.color.quake7_8
             else -> {
                 R.color.quakeMax
             }
         }
     }
-    
+
     override fun getItemCount() = quakes.size
-    
+
     class QuakeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvDate: TextView = itemView.tvDate
         val tvHour: TextView = itemView.tvHour
@@ -85,5 +85,5 @@ class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
         val tvResolution: TextView = itemView.tvResolution
         val ibLocation: ImageButton = itemView.ibLocation
     }
-    
+
 }
