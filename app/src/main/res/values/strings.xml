@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">DepremYA</string>
-    <string name="str_hour">Saat: %s</string>
-    <string name="str_depth">Derinlik: %s km</string>
-    <string name="str_md">MD: %s</string>
-    <string name="str_mw">MW: %s</string>
-    <string name="str_city">Şehir:</string>
-    <string name="str_region">Bölge: %s</string>
-    <string name="str_resolution">Nitelik: %s</string>
-    <string name="splash_title">DepremYA</string>
-    <string name="license">Yunus Emre Ak ~ Asmaa Mirkhan \n The Appache License 2.0</string>
+	<string name="app_name">DepremYA</string>
+	<string name="str_hour">Saat: %s</string>
+	<string name="str_depth">Derinlik: %s km</string>
+	<string name="str_md">MD: %s</string>
+	<string name="str_mw">MW: %s</string>
+	<string name="str_city">Şehir:</string>
+	<string name="str_region">Bölge: %s</string>
+	<string name="str_resolution">Nitelik: %s</string>
+	<string name="splash_title">DepremYA</string>
+	<string name="license">Yunus Emre Ak ~ Asmaa Mirkhan \n The Appache License 2.0</string>
 </resources>

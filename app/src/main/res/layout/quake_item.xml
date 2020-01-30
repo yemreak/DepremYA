@@ -1,148 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginLeft="16dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginRight="16dp"
-    app:cardCornerRadius="3dp">
-
-    <LinearLayout
-        android:id="@+id/quake_item_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:text="2.2"
-            android:gravity="center"
-            android:background="@drawable/magnitude_background"
-            android:textColor="@color/colorPrimaryText"
-            android:id="@+id/tvMl"
-            android:textSize="18sp"
-            android:fontFamily="@font/montserrat_bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="12dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvHour"
-                    android:text="SAAT"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorPrimary"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:layout_centerVertical="true" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_alignParentEnd="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvCity"
-                        android:text="YER"
-                        android:background="@drawable/city_background"
-                        android:textSize="16sp"
-                        android:paddingLeft="6dp"
-                        android:paddingRight="6dp"
-                        android:layout_marginStart="6dp"
-                        android:textColor="@color/colorSecondary"
-                        android:fontFamily="@font/fira_medium" />
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvDate"
-                android:text="TARIH"
-                android:fontFamily="@font/montserrat"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvRegion"
-                android:text="BÖLGE"
-                android:textSize="16sp"
-                android:fontFamily="@font/fira_regular" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvDepth"
-                android:text="DERINLIK"
-                android:textSize="16sp"
-                android:fontFamily="@font/ubuntu_regular" />
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvResolution"
-                        android:text="NITELIK"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/ubuntu_regular" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tvMd"
-                            android:text="MD"
-                            android:fontFamily="@font/ubuntu_regular"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tvMw"
-                            android:text="MW"
-                            android:fontFamily="@font/ubuntu_regular"
-                            android:textSize="16sp"
-                            android:layout_centerInParent="true" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_map_24"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:layout_alignParentEnd="true"
-                    android:id="@+id/ibLocation" />
-            </RelativeLayout>
-        </LinearLayout>
-    </LinearLayout>
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginLeft="16dp"
+	android:layout_marginTop="16dp"
+	android:layout_marginRight="16dp"
+	app:cardCornerRadius="3dp">
+	
+	<LinearLayout
+		android:id="@+id/quake_item_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="16dp"
+		android:gravity="center"
+		android:orientation="horizontal">
+		
+		<TextView
+			android:id="@+id/tvMl"
+			android:layout_width="60dp"
+			android:layout_height="60dp"
+			android:background="@drawable/magnitude_background"
+			android:fontFamily="@font/montserrat_bold"
+			android:gravity="center"
+			android:text="2.2"
+			android:textColor="@color/colorPrimaryText"
+			android:textSize="18sp" />
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:paddingLeft="12dp">
+			
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<TextView
+					android:id="@+id/tvHour"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:fontFamily="@font/montserrat_bold"
+					android:text="SAAT"
+					android:textColor="@color/colorPrimary"
+					android:textSize="18sp" />
+				
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentEnd="true"
+					android:orientation="horizontal">
+					
+					<TextView
+						android:id="@+id/tvCity"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="6dp"
+						android:background="@drawable/city_background"
+						android:fontFamily="@font/fira_medium"
+						android:paddingLeft="6dp"
+						android:paddingRight="6dp"
+						android:text="YER"
+						android:textColor="@color/colorSecondary"
+						android:textSize="16sp" />
+				</LinearLayout>
+			
+			</RelativeLayout>
+			
+			<TextView
+				android:id="@+id/tvDate"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:fontFamily="@font/montserrat"
+				android:text="TARIH"
+				android:textSize="12sp" />
+			
+			<TextView
+				android:id="@+id/tvRegion"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:fontFamily="@font/fira_regular"
+				android:text="BÖLGE"
+				android:textSize="16sp" />
+			
+			<TextView
+				android:id="@+id/tvDepth"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:fontFamily="@font/ubuntu_regular"
+				android:text="DERINLIK"
+				android:textSize="16sp" />
+			
+			
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+					
+					<TextView
+						android:id="@+id/tvResolution"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:fontFamily="@font/ubuntu_regular"
+						android:text="NITELIK"
+						android:textSize="16sp" />
+					
+					<RelativeLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+						
+						
+						<TextView
+							android:id="@+id/tvMd"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:fontFamily="@font/ubuntu_regular"
+							android:text="MD"
+							android:textSize="16sp" />
+						
+						<TextView
+							android:id="@+id/tvMw"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_centerInParent="true"
+							android:fontFamily="@font/ubuntu_regular"
+							android:text="MW"
+							android:textSize="16sp" />
+					</RelativeLayout>
+				</LinearLayout>
+				
+				<ImageButton
+					android:id="@+id/ibLocation"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentEnd="true"
+					android:background="?android:attr/selectableItemBackground"
+					android:src="@drawable/ic_baseline_map_24" />
+			</RelativeLayout>
+		</LinearLayout>
+	</LinearLayout>
 </androidx.cardview.widget.CardView>
