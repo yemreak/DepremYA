@@ -17,15 +17,15 @@ class SplashActivity : AppCompatActivity() {
         runProgressBar()
         val handler = Handler()
         handler.postDelayed(splashHandler, SPLASH_TIME.toLong())
-
+        
     }
-
+    
     internal var splashHandler: Runnable = Runnable {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
-
+    
     fun runProgressBar() {
         ObjectAnimator.ofInt(pbSplash, "progress", 100).setDuration(SPLASH_TIME.toLong())
             .start()
