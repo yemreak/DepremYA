@@ -8,7 +8,7 @@ import com.yemreak.depremya.api.KandilliAPI
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
             initRecyclerView()
         }
     }
-
+    
     private fun initRecyclerView() {
         quake_recycler_view.layoutManager = LinearLayoutManager(this)
         KandilliAPI.requestEarthQuakes(this) {
@@ -25,5 +25,5 @@ class MainActivity : AppCompatActivity() {
             quake_refresh_layout.isRefreshing = false
         }
     }
-
+    
 }
