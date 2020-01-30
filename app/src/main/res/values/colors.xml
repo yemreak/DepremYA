@@ -12,8 +12,22 @@
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="background">#e8eaf6</color>
-    <array name="magnitudeColors">
-        <item>@color/colorPrimary</item>
-        <item>@color/colorDivider</item>
-    </array>
+    <!-- 0 - 3 -->
+    <color name="quake0_3">#c0c4f2</color>
+    <!-- 3 - 4 -->
+    <color name="quake3_4">#f7a9a1</color>
+    <!-- 4 - 5 -->
+    <color name="quake4_5">#f47e71</color>
+    <!-- 5 - 5.5 -->
+    <color name="quake5_5h">#f2695a</color>
+    <!-- 5.5 - 6 -->
+    <color name="quake5h_6">#f05545</color>
+    <!-- 6 - 6.5 -->
+    <color name="quake6_6h">#ee3e2b</color>
+    <!-- 6.5 - 7 -->
+    <color name="quake6h_7">#d42511</color>
+    <!-- 7 - 8 -->
+    <color name="quake7_8">#a51d0d</color>
+    <!-- otherwise -->
+    <color name="quakeMax">#76140a</color>
 </resources>
