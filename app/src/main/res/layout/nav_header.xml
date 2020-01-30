@@ -19,6 +19,6 @@
 		android:fontFamily="@font/montserrat_bold"
 		android:padding="6dp"
 		android:text="@string/splash_title"
-		android:textColor="#ffffff"
+		android:textColor="@color/colorPrimary"
 		android:textSize="14sp" />
 </RelativeLayout>
