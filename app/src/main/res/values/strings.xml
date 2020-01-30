@@ -9,4 +9,6 @@
 	<string name="str_resolution">Nitelik: %s</string>
 	<string name="splash_title">DepremYA</string>
 	<string name="license">Yunus Emre Ak ~ Asmaa Mirkhan \n The Appache License 2.0</string>
+	<string name="str_open">Aç</string>
+	<string name="str_close">Kapat</string>
 </resources>
