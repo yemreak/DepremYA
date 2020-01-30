@@ -14,7 +14,7 @@ import com.yemreak.depremya.R
 import com.yemreak.depremya.entity.Earthquake
 import kotlinx.android.synthetic.main.quake_item.view.*
 
-class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
+class QuakeAdapter(val context: Context, val earthquakes: List<Earthquake>) :
 	RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
 	val MAX_COLOR = 255
 	val MAX_GREEN = 25
@@ -27,30 +27,31 @@ class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
 	}
 	
 	override fun onBindViewHolder(holder: QuakeAdapter.QuakeHolder, position: Int) {
-		holder.tvDate.text = quakes[position].date
-		holder.tvHour.text = context.getString(R.string.str_hour, quakes[position].hour)
-		holder.tvDepth.text = context.getString(R.string.str_depth, quakes[position].depth)
-		holder.tvMd.text = context.getString(R.string.str_md, quakes[position].md)
-		holder.tvMl.text = quakes[position].ml
-		holder.tvMw.text = context.getString(R.string.str_mw, quakes[position].mw)
-		holder.tvCity.text = quakes[position].city
-		if (quakes[position].region == "")
+		holder.tvDate.text = earthquakes[position].date
+		holder.tvHour.text = context.getString(R.string.str_hour, earthquakes[position].hour)
+		holder.tvDepth.text = context.getString(R.string.str_depth, earthquakes[position].depth)
+		holder.tvMd.text = context.getString(R.string.str_md, earthquakes[position].md)
+		holder.tvMl.text = earthquakes[position].ml
+		holder.tvMw.text = context.getString(R.string.str_mw, earthquakes[position].mw)
+		holder.tvCity.text = earthquakes[position].city
+		if (earthquakes[position].region == "")
 			holder.tvRegion.text = context.getString(R.string.str_region, " - ")
 		else
-			holder.tvRegion.text = context.getString(R.string.str_region, quakes[position].region)
+			holder.tvRegion.text =
+				context.getString(R.string.str_region, earthquakes[position].region)
 		holder.tvResolution.text =
-			context.getString(R.string.str_resolution, quakes[position].resolution)
+			context.getString(R.string.str_resolution, earthquakes[position].resolution)
 		
 		holder.ibLocation.setOnClickListener {
 			val uri =
-				"http://maps.google.com/maps?q=loc:${quakes[position].lat},${quakes[position].long}(${quakes[position].city})"
+				"http://maps.google.com/maps?q=loc:${earthquakes[position].lat},${earthquakes[position].long}(${earthquakes[position].city})"
 			val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
 			intent.setPackage("com.google.android.apps.maps")
 			if (intent.resolveActivity(context.packageManager) != null)
 				context.startActivity(intent)
 		}
 		holder.tvMl.background.setColorFilter(
-			context.resources.getColor(generateMagColor(quakes[position].ml.toDouble())),
+			context.resources.getColor(generateMagColor(earthquakes[position].ml.toDouble())),
 			PorterDuff.Mode.SRC_IN
 		)
 	}
@@ -71,7 +72,7 @@ class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
 		}
 	}
 	
-	override fun getItemCount() = quakes.size
+	override fun getItemCount() = earthquakes.size
 	
 	class QuakeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 		val tvDate: TextView = itemView.tvDate
