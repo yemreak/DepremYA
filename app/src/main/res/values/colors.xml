@@ -30,4 +30,10 @@
 	<color name="quake7_8">#a51d0d</color>
 	<!-- otherwise -->
 	<color name="quakeMax">#76140a</color>
+	<array name="connecting_colors">
+		<item>@color/colorAccent</item>
+		<item>@color/colorPrimary</item>
+		<item>@color/quake5h_6</item>
+		<item>@color/quake6h_7</item>
+	</array>
 </resources>
