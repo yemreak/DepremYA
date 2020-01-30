@@ -3,6 +3,7 @@ package com.yemreak.depremya.ui
 import android.app.Dialog
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import com.yemreak.depremya.R
 import com.yemreak.depremya.api.KandilliAPI
 import com.yemreak.depremya.entity.Earthquake
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.city_filter_dialog.*
 import kotlinx.android.synthetic.main.mag_filter_dialog.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-		
 		initRecyclerView()
 		initNavDrawer()
 		quake_refresh_layout.setOnRefreshListener {
@@ -75,6 +76,19 @@ class MainActivity : AppCompatActivity() {
 				})
 				dialog.dismiss()
 			}
+		} else {
+			dialog.setContentView(R.layout.city_filter_dialog)
+			var arrayAdapter = ArrayAdapter<String>(
+				this, android.R.layout.simple_list_item_1,
+				this.resources.getStringArray(R.array.tr_cities)
+			)
+			dialog.actvCity?.setAdapter(arrayAdapter)
+			dialog.btnAcceptCity?.setOnClickListener {
+				quake_recycler_view.adapter = QuakeAdapter(this, quakes.filter {
+					(it.city.equals(dialog.actvCity.text.toString(), ignoreCase = true))
+				})
+				dialog.dismiss()
+			}
 		}
 		dialog.show()
 		drawerLayout.closeDrawer(navView)
@@ -103,5 +117,4 @@ class MainActivity : AppCompatActivity() {
 			return true
 		return super.onOptionsItemSelected(item)
 	}
-	
 }

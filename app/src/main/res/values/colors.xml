@@ -12,6 +12,7 @@
 	<color name="colorIcons">#FFFFFF</color>
 	<color name="colorDivider">#BDBDBD</color>
 	<color name="background">#e8eaf6</color>
+	<color name="backgroundRed">#f6e8e8</color>
 	<!-- 0 - 3 -->
 	<color name="quake0_3">#85D979</color>
 	<!-- 3 - 4 -->
