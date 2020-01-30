@@ -16,10 +16,6 @@ import kotlinx.android.synthetic.main.quake_item.view.*
 
 class QuakeAdapter(val context: Context, val earthquakes: List<Earthquake>) :
 	RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
-	val MAX_COLOR = 255
-	val MAX_GREEN = 25
-	val MAX_BLUE = 25
-	val COLOR_FACTOR = 25
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuakeAdapter.QuakeHolder {
 		val view: View =
 			LayoutInflater.from(parent.context).inflate(R.layout.quake_item, parent, false)
