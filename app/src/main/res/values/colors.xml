@@ -11,4 +11,9 @@
     <color name="colorSecondaryText">#ffffff</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="background">#e8eaf6</color>
+    <array name="magnitudeColors">
+        <item>@color/colorPrimary</item>
+        <item>@color/colorDivider</item>
+    </array>
 </resources>
