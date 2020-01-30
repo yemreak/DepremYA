@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
 		dialog.npMin.maxValue = MAX_MAG
 		dialog.npMax.minValue = MIN_MAG
 		dialog.npMax.maxValue = MAX_MAG
+		dialog.npMax.value = MAX_MAG
 		dialog.npMin.setOnValueChangedListener() { picker, oldVal, newVal ->
 			minMag = newVal
 		}
