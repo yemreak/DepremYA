@@ -15,14 +15,14 @@ import com.yemreak.depremya.entity.Earthquake
 import kotlinx.android.synthetic.main.quake_item.view.*
 
 class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
-        RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
+    RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
     val MAX_COLOR = 255
     val MAX_GREEN = 25
     val MAX_BLUE = 25
     val COLOR_FACTOR = 25
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuakeAdapter.QuakeHolder {
         val view: View =
-                LayoutInflater.from(parent.context).inflate(R.layout.quake_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.quake_item, parent, false)
         return QuakeHolder(view)
     }
 
@@ -39,19 +39,19 @@ class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
         else
             holder.tvRegion.text = context.getString(R.string.str_region, quakes[position].region)
         holder.tvResolution.text =
-                context.getString(R.string.str_resolution, quakes[position].resolution)
+            context.getString(R.string.str_resolution, quakes[position].resolution)
 
         holder.ibLocation.setOnClickListener {
             val uri =
-                    "http://maps.google.com/maps?q=loc:${quakes[position].lat},${quakes[position].long}(${quakes[position].city})"
+                "http://maps.google.com/maps?q=loc:${quakes[position].lat},${quakes[position].long}(${quakes[position].city})"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             intent.setPackage("com.google.android.apps.maps")
             if (intent.resolveActivity(context.packageManager) != null)
                 context.startActivity(intent)
         }
         holder.tvMl.background.setColorFilter(
-                context.resources.getColor(generateMagColor(quakes[position].ml.toDouble())),
-                PorterDuff.Mode.SRC_IN
+            context.resources.getColor(generateMagColor(quakes[position].ml.toDouble())),
+            PorterDuff.Mode.SRC_IN
         )
     }
 
@@ -64,7 +64,7 @@ class QuakeAdapter(val context: Context, val quakes: List<Earthquake>) :
             mag > 5.5 && mag < 6 -> return R.color.quake5h_6
             mag > 6 && mag < 6.5 -> return R.color.quake6_6h
             mag > 6.5 && mag < 7 -> return R.color.quake6h_7
-            mag in 7..8 -> return R.color.quake7_8
+            mag > 7 && mag < 8 -> return R.color.quake7_8
             else -> {
                 return R.color.quakeMax
             }
