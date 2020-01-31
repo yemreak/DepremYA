@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/city_filter"
-		android:title="📌 Şehir filtresi"/>
-	<item android:id="@+id/mag_filter"
-		android:title="⚡ Büyüklük Filtresi"/>
-	
+	<item
+		android:id="@+id/city_filter"
+		android:title="📌 Şehir filtresi" />
+	<item
+		android:id="@+id/mag_filter"
+		android:title="⚡ Büyüklük Filtresi" />
 </menu>
