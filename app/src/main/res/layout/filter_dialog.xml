@@ -7,10 +7,23 @@
 	android:orientation="vertical"
 	android:gravity="center"
 	android:layout_gravity="center"
-	android:layout_centerVertical="true">
+	android:layout_centerVertical="true"
+	android:paddingRight="28dp"
+	android:paddingLeft="28dp"
+	android:paddingTop="48dp"
+	android:paddingBottom="48dp"
+	android:minHeight="250dp"
+	android:minWidth="250dp">
 	
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/filter"
+		android:layout_marginBottom="16dp"
+		android:textColor="@color/colorPrimary"
+		android:textSize="18sp" />
 	
-	<com.google.android.material.button.MaterialButtonToggleGroup xmlns:android="http://schemas.android.com/apk/res/android"
+	<com.google.android.material.button.MaterialButtonToggleGroup
 		android:id="@+id/tbgMag"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

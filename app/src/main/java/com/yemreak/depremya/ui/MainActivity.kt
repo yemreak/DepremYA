@@ -1,7 +1,6 @@
 package com.yemreak.depremya.ui
 
-import android.app.AlertDialog
-import android.content.DialogInterface
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -10,18 +9,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yemreak.depremya.R
 import com.yemreak.depremya.api.KandilliAPI
-import com.yemreak.depremya.entity.Earthquake
+import com.yemreak.depremya.entity.Quake
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filter_dialog.view.*
 
 class MainActivity : AppCompatActivity() {
-	private var quakes: List<Earthquake> = emptyList()
+	private var quakes: List<Quake> = emptyList()
 	private var selectedMag: Int = 0
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 		initRecyclerView()
-		initNavDrawer()
 		quake_refresh_layout.setOnRefreshListener {
 			initRecyclerView()
 		}
@@ -37,26 +35,16 @@ class MainActivity : AppCompatActivity() {
 	}
 	
 	private fun buildDialog() {
-		val filterDialog = AlertDialog.Builder(this)
+		val filterDialog = Dialog(this)
 		val viewGroup =
 			LayoutInflater
 				.from(filterDialog.context)
 				.inflate(R.layout.filter_dialog, null)
 		filterDialog
-			.setView(viewGroup)
-			.setPositiveButton(R.string.str_show, DialogInterface.OnClickListener() { _, _ ->
-				quake_recycler_view.adapter = QuakeAdapter(this, quakes.filter {
-					(it.ml.toDouble() >= selectedMag)
-				})
-			})
-			.setTitle(R.string.filter)
-			.create()
-			.show()
-		viewGroup.tbgMag?.addOnButtonCheckedListener { group, checkedId, isChecked ->
+			.setContentView(viewGroup)
+		filterDialog.show()
+		viewGroup.tbgMag.addOnButtonCheckedListener { group, checkedId, isChecked ->
 			selectedMag = checkedId
-			/*var buttonChange = findViewById<MaterialButton>(checkedId)
-			viewGroup.findViewById<MaterialButton>(checkedId)
-				.setBackgroundColor(resources.getColor(R.color.quakeMax))*/
 			selectedMag = when (checkedId) {
 				R.id.btnGreater0 -> 0
 				R.id.btnGreater4 -> 4
@@ -64,6 +52,10 @@ class MainActivity : AppCompatActivity() {
 				R.id.btnGreater6 -> 6
 				else -> 0
 			}
+			quake_recycler_view.adapter = QuakeAdapter(this, quakes.filter {
+				(it.ml.toDouble() >= selectedMag)
+			})
+			filterDialog.dismiss()
 		}
 	}
 	
