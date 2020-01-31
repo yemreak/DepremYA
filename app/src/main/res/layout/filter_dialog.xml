@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_height="wrap_content"
+	android:padding="16dp"
+	android:orientation="vertical"
+	android:gravity="center"
+	android:layout_gravity="center"
+	android:layout_centerVertical="true">
+	
+	
+	<com.google.android.material.button.MaterialButtonToggleGroup xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/tbgMag"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:singleSelection="true"
+		android:orientation="vertical">
+		
+		<com.google.android.material.button.MaterialButton
+			style="?attr/materialButtonOutlinedStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/greater0"
+			app:shapeAppearance="@style/Cut"
+			app:strokeColor="@color/quake0_3"
+			android:textColor="@color/quake0_3"
+			android:id="@+id/btnGreater0"
+			android:insetTop="0dp"
+			android:insetBottom="0dp" />
+		
+		<com.google.android.material.button.MaterialButton
+			style="?attr/materialButtonOutlinedStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/greater4"
+			android:padding="0dp"
+			app:strokeColor="@color/quake4_5"
+			android:textColor="@color/quake4_5"
+			android:id="@+id/btnGreater4"
+			android:insetTop="0dp"
+			android:insetBottom="0dp" />
+		
+		<com.google.android.material.button.MaterialButton
+			style="?attr/materialButtonOutlinedStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/greater5"
+			app:strokeColor="@color/quake5_5h"
+			android:textColor="@color/quake5_5h"
+			android:id="@+id/btnGreater5"
+			android:insetTop="0dp"
+			android:insetBottom="0dp" />
+		
+		<com.google.android.material.button.MaterialButton
+			style="?attr/materialButtonOutlinedStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/greater6"
+			app:shapeAppearance="@style/Cut"
+			app:strokeColor="@color/quake6_6h"
+			android:textColor="@color/quake6_6h"
+			android:id="@+id/btnGreater6"
+			android:insetTop="0dp"
+			android:insetBottom="0dp" />
+	
+	</com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+</LinearLayout>

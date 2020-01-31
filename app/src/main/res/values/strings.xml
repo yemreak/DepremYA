@@ -9,9 +9,13 @@
 	<string name="str_resolution">Nitelik: %s</string>
 	<string name="splash_title">DepremYA</string>
 	<string name="license">Yunus Emre Ak ~ Asmaa Mirkhan \n The Appache License 2.0</string>
-	<string name="str_open">Aç</string>
-	<string name="str_close">Kapat</string>
-	<string name="filter">Filtrele</string>
+	<string name="str_show">Göster</string>
+	<string name="str_cancel">İptal</string>
+	<string name="filter">Sonuçları Filtrele</string>
+	<string name="greater0">+0</string>
+	<string name="greater4">+4</string>
+	<string name="greater5">+5</string>
+	<string name="greater6">+6</string>
 	<string-array name="tr_cities">
 		
 		<item>Adana</item>
