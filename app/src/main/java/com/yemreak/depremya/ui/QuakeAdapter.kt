@@ -11,10 +11,10 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yemreak.depremya.R
-import com.yemreak.depremya.entity.Earthquake
+import com.yemreak.depremya.entity.Quake
 import kotlinx.android.synthetic.main.quake_item.view.*
 
-class QuakeAdapter(private val context: Context, private val earthquakes: List<Earthquake>) :
+class QuakeAdapter(private val context: Context, private val quakes: List<Quake>) :
 	RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
 	
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuakeAdapter.QuakeHolder {
@@ -24,7 +24,7 @@ class QuakeAdapter(private val context: Context, private val earthquakes: List<E
 	}
 	
 	override fun onBindViewHolder(holder: QuakeAdapter.QuakeHolder, position: Int) {
-		with(earthquakes[position]) {
+		with(quakes[position]) {
 			holder.tvDate.text = date
 			holder.tvHour.text = context.getString(R.string.str_hour, hour)
 			holder.tvDepth.text = context.getString(R.string.str_depth, depth)
@@ -41,7 +41,7 @@ class QuakeAdapter(private val context: Context, private val earthquakes: List<E
 				context.getString(R.string.str_resolution, resolution)
 			
 			holder.ibLocation.setOnClickListener {
-				val uri = "http://www.google.com/maps/place/${lat},${long}/@${lat},${long},7.7z"
+				val uri = "http://www.google.com/maps/place/${lat},${lng}/@${lat},${lng},7.7z"
 				val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
 				intent.setPackage("com.google.android.apps.maps")
 				if (intent.resolveActivity(context.packageManager) != null)
@@ -70,7 +70,7 @@ class QuakeAdapter(private val context: Context, private val earthquakes: List<E
 		}
 	}
 	
-	override fun getItemCount() = earthquakes.size
+	override fun getItemCount() = quakes.size
 	
 	class QuakeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 		val tvDate: TextView = itemView.tvDate

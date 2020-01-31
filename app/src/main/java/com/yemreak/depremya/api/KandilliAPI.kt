@@ -6,7 +6,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.yemreak.depremya.entity.Earthquake
+import com.yemreak.depremya.entity.Quake
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,7 +31,7 @@ abstract class KandilliAPI {
 		private const val mwsIndex = mlsIndex + 5
 		private const val placesIndex = mwsIndex + 50
 		
-		fun requestEarthQuakes(context: Context, onResponse: (List<Earthquake>) -> Unit) {
+		fun requestEarthQuakes(context: Context, onResponse: (List<Quake>) -> Unit) {
 			val queue = Volley.newRequestQueue(context)
 			val stringRequest = StringRequest(Request.Method.GET, URL,
 				Response.Listener<String> { response ->
@@ -48,8 +48,8 @@ abstract class KandilliAPI {
 			queue.add(stringRequest)
 		}
 		
-		private fun parseResponse(response: String): List<Earthquake> {
-			val earthQuakeList = ArrayList<Earthquake>()
+		private fun parseResponse(response: String): List<Quake> {
+			val earthQuakeList = ArrayList<Quake>()
 			
 			val regex = """<pre>.*</pre>""".toRegex(RegexOption.DOT_MATCHES_ALL)
 			regex.find(response)?.value?.let {
@@ -62,7 +62,7 @@ abstract class KandilliAPI {
 			return earthQuakeList.toList()
 		}
 		
-		private fun parseLine(line: String): Earthquake {
+		private fun parseLine(line: String): Quake {
 			var city: String = ""
 			var region: String = ""
 			
@@ -73,7 +73,7 @@ abstract class KandilliAPI {
 				if (it.size > 1) region = it.first()
 			}
 			
-			return Earthquake(
+			return Quake(
 				line.slice(0..indexDates).trim(),
 				line.slice(indexDates..indexHours).trim(),
 				line.slice(indexHours..latIndex).trim(),
