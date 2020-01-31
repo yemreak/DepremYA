@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.quake_item.view.*
 
 class QuakeAdapter(private val context: Context, private val quakes: List<Quake>) :
 	RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
-	
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuakeAdapter.QuakeHolder {
 		val view: View =
 			LayoutInflater.from(parent.context).inflate(R.layout.quake_item, parent, false)
@@ -41,7 +40,7 @@ class QuakeAdapter(private val context: Context, private val quakes: List<Quake>
 				context.getString(R.string.str_resolution, resolution)
 			
 			holder.ibLocation.setOnClickListener {
-				val uri = "http://www.google.com/maps/place/${lat},${lng}/@${lat},${lng},7.7z"
+				val uri = "https://maps.google.com/?q=${lat},${lng}&ll=${lat},${lng}&z=7"
 				val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
 				intent.setPackage("com.google.android.apps.maps")
 				if (intent.resolveActivity(context.packageManager) != null)
