@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 		initRecyclerView()
+		initNavDrawer()
 		quake_refresh_layout.setOnRefreshListener {
 			initRecyclerView()
 		}

@@ -11,10 +11,10 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yemreak.depremya.R
-import com.yemreak.depremya.entity.Earthquake
+import com.yemreak.depremya.entity.Quake
 import kotlinx.android.synthetic.main.quake_item.view.*
 
-class QuakeAdapter(val context: Context, val earthquakes: List<Earthquake>) :
+class QuakeAdapter(private val context: Context, private val quakes: List<Quake>) :
 	RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuakeAdapter.QuakeHolder {
 		val view: View =
@@ -23,33 +23,34 @@ class QuakeAdapter(val context: Context, val earthquakes: List<Earthquake>) :
 	}
 	
 	override fun onBindViewHolder(holder: QuakeAdapter.QuakeHolder, position: Int) {
-		holder.tvDate.text = earthquakes[position].date
-		holder.tvHour.text = context.getString(R.string.str_hour, earthquakes[position].hour)
-		holder.tvDepth.text = context.getString(R.string.str_depth, earthquakes[position].depth)
-		holder.tvMd.text = context.getString(R.string.str_md, earthquakes[position].md)
-		holder.tvMl.text = earthquakes[position].ml
-		holder.tvMw.text = context.getString(R.string.str_mw, earthquakes[position].mw)
-		holder.tvCity.text = earthquakes[position].city
-		if (earthquakes[position].region == "")
-			holder.tvRegion.text = context.getString(R.string.str_region, " - ")
-		else
-			holder.tvRegion.text =
-				context.getString(R.string.str_region, earthquakes[position].region)
-		holder.tvResolution.text =
-			context.getString(R.string.str_resolution, earthquakes[position].resolution)
-		
-		holder.ibLocation.setOnClickListener {
-			val uri =
-				"http://maps.google.com/maps?q=loc:${earthquakes[position].lat},${earthquakes[position].long}(${earthquakes[position].city})"
-			val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-			intent.setPackage("com.google.android.apps.maps")
-			if (intent.resolveActivity(context.packageManager) != null)
-				context.startActivity(intent)
+		with(quakes[position]) {
+			holder.tvDate.text = date
+			holder.tvHour.text = context.getString(R.string.str_hour, hour)
+			holder.tvDepth.text = context.getString(R.string.str_depth, depth)
+			holder.tvMd.text = context.getString(R.string.str_md, md)
+			holder.tvMl.text = ml
+			holder.tvMw.text = context.getString(R.string.str_mw, mw)
+			holder.tvCity.text = city
+			if (region == "")
+				holder.tvRegion.text = context.getString(R.string.str_region, " - ")
+			else
+				holder.tvRegion.text =
+					context.getString(R.string.str_region, region)
+			holder.tvResolution.text =
+				context.getString(R.string.str_resolution, resolution)
+			
+			holder.ibLocation.setOnClickListener {
+				val uri = "http://www.google.com/maps/place/${lat},${lng}/@${lat},${lng},7.7z"
+				val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+				intent.setPackage("com.google.android.apps.maps")
+				if (intent.resolveActivity(context.packageManager) != null)
+					context.startActivity(intent)
+			}
+			holder.tvMl.background.setColorFilter(
+				context.resources.getColor(generateMagColor(ml.toDouble())),
+				PorterDuff.Mode.SRC_IN
+			)
 		}
-		holder.tvMl.background.setColorFilter(
-			context.resources.getColor(generateMagColor(earthquakes[position].ml.toDouble())),
-			PorterDuff.Mode.SRC_IN
-		)
 	}
 	
 	private fun generateMagColor(mag: Double): Int {
@@ -68,7 +69,7 @@ class QuakeAdapter(val context: Context, val earthquakes: List<Earthquake>) :
 		}
 	}
 	
-	override fun getItemCount() = earthquakes.size
+	override fun getItemCount() = quakes.size
 	
 	class QuakeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 		val tvDate: TextView = itemView.tvDate
