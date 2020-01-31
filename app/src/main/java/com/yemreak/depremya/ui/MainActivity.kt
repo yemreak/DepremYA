@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yemreak.depremya.R
 import com.yemreak.depremya.api.KandilliAPI
-import com.yemreak.depremya.entity.Earthquake
+import com.yemreak.depremya.entity.Quake
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.city_filter_dialog.*
 import kotlinx.android.synthetic.main.mag_filter_dialog.*
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 	//private var sbMag: SeekBar? = null
 	private val MIN_MAG = 0
 	private val MAX_MAG = 10
-	private var quakes: List<Earthquake> = emptyList()
+	private var quakes: List<Quake> = emptyList()
 	private var minMag: Int = 0
 	private var maxMag: Int = 0
 	override fun onCreate(savedInstanceState: Bundle?) {
