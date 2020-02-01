@@ -16,4 +16,5 @@
 	<string name="greater4">+4</string>
 	<string name="greater5">+5</string>
 	<string name="greater6">+6</string>
+	<string name="no_internet">Üzgünüz\nİnternete bağlanamadı!</string>
 </resources>
