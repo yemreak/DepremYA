@@ -79,9 +79,15 @@ class MainActivity : AppCompatActivity() {
 				R.id.btnGreater6 -> 6
 				else -> 0
 			}
-			quake_recycler_view.adapter = QuakeAdapter(this, quakes.filter {
+			val filtered = quakes.filter {
 				(it.ml.toDouble() >= selectedMag)
-			})
+			}
+			if (filtered.isEmpty()) {
+				setContentView(urgentLayout)
+				initUrgentLayout(R.drawable.magnifier, R.string.no_result)
+			} else {
+				quake_recycler_view.adapter = QuakeAdapter(this, filtered)
+			}
 			filterDialog.dismiss()
 		}
 	}
