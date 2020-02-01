@@ -6,7 +6,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.yemreak.depremya.entity.Quake
+import com.yemreak.depremya.db.entity.Quake
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,7 +31,7 @@ abstract class KandilliAPI {
 		private const val mwsIndex = mlsIndex + 5
 		private const val placesIndex = mwsIndex + 50
 		
-		fun requestEarthQuakes(context: Context, onResponse: (List<Quake>) -> Unit) {
+		fun requestEarthQuakes(context: Context, onResponse: (List<Quake>?) -> Unit) {
 			val queue = Volley.newRequestQueue(context)
 			val stringRequest = StringRequest(Request.Method.GET, URL,
 				Response.Listener<String> { response ->
@@ -43,6 +43,7 @@ abstract class KandilliAPI {
 						"requestEarthQuakes: İstek atılamadı $URL",
 						it
 					)
+					onResponse(null)
 				})
 			
 			queue.add(stringRequest)
@@ -74,6 +75,7 @@ abstract class KandilliAPI {
 			}
 			
 			return Quake(
+				0,
 				line.slice(0..indexDates).trim(),
 				line.slice(indexDates..indexHours).trim(),
 				line.slice(indexHours..latIndex).trim(),
