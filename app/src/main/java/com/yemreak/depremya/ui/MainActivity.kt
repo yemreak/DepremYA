@@ -5,33 +5,58 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yemreak.depremya.R
 import com.yemreak.depremya.api.KandilliAPI
-import com.yemreak.depremya.entity.Quake
+import com.yemreak.depremya.db.entity.Quake
+import com.yemreak.depremya.viewmodel.QuakeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filter_dialog.view.*
 
 class MainActivity : AppCompatActivity() {
+	
 	private var quakes: List<Quake> = emptyList()
 	private var selectedMag: Int = 0
+	
+	private lateinit var quakeViewModel: QuakeViewModel
+	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		
 		setContentView(R.layout.activity_main)
 		initRecyclerView()
+		
+		quakeViewModel = ViewModelProvider(this).get(QuakeViewModel::class.java)
+		quakeViewModel.allQuakes.observe(this, Observer {
+			it?.let {
+				quakes = it
+				(quake_recycler_view.adapter as QuakeAdapter).setQuakesAndNotify(quakes)
+			}
+		})
+		
 		quake_refresh_layout.setOnRefreshListener {
-			initRecyclerView()
+			KandilliAPI.requestEarthQuakes(this) {
+				when {
+					it == null -> Toast.makeText(
+						this,
+						"Bağlantı başarısız",
+						Toast.LENGTH_SHORT
+					).show()
+					quakes.isEmpty() || it.first() != quakes.first() ->
+						quakeViewModel.refreshQuakes(it)
+				}
+				quake_refresh_layout.isRefreshing = false
+			}
 		}
 	}
 	
 	private fun initRecyclerView() {
 		quake_recycler_view.layoutManager = LinearLayoutManager(this)
-		KandilliAPI.requestEarthQuakes(this) {
-			quakes = it
-			quake_recycler_view.adapter = QuakeAdapter(this, it)
-			quake_refresh_layout.isRefreshing = false
-		}
+		quake_recycler_view.adapter = QuakeAdapter(this, quakes)
 	}
 	
 	private fun buildDialog() {
@@ -52,9 +77,8 @@ class MainActivity : AppCompatActivity() {
 				R.id.btnGreater6 -> 6
 				else -> 0
 			}
-			quake_recycler_view.adapter = QuakeAdapter(this, quakes.filter {
-				(it.ml.toDouble() >= selectedMag)
-			})
+			(quake_recycler_view.adapter as QuakeAdapter)
+				.setQuakesAndNotify(quakes.filter { it.ml.toDouble() >= selectedMag })
 			filterDialog.dismiss()
 		}
 	}

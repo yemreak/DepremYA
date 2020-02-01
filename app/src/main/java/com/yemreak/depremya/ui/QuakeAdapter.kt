@@ -11,11 +11,12 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yemreak.depremya.R
-import com.yemreak.depremya.entity.Quake
+import com.yemreak.depremya.db.entity.Quake
 import kotlinx.android.synthetic.main.quake_item.view.*
 
-class QuakeAdapter(private val context: Context, private val quakes: List<Quake>) :
+class QuakeAdapter(private val context: Context, private var quakes: List<Quake>) :
 	RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
+	
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuakeAdapter.QuakeHolder {
 		val view: View =
 			LayoutInflater.from(parent.context).inflate(R.layout.quake_item, parent, false)
@@ -51,6 +52,11 @@ class QuakeAdapter(private val context: Context, private val quakes: List<Quake>
 				PorterDuff.Mode.SRC_IN
 			)
 		}
+	}
+	
+	fun setQuakesAndNotify(quakes: List<Quake>) {
+		this.quakes = quakes
+		notifyDataSetChanged()
 	}
 	
 	private fun generateMagColor(mag: Double): Int {
