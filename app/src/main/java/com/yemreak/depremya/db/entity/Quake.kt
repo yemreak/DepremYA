@@ -44,6 +44,9 @@ data class Quake(
 		
 	}
 	
+	/**
+	 * Tarih ve saat bilgileri aynı ise iki deprem birbirine eşittir
+	 */
 	@Ignore
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
@@ -51,17 +54,12 @@ data class Quake(
 		
 		other as Quake
 		
-		if (date != other.date) return false
-		if (hour != other.hour) return false
-		if (lat != other.lat) return false
-		if (lng != other.lng) return false
-		if (depth != other.depth) return false
-		if (md != other.md) return false
-		if (ml != other.ml) return false
-		if (mw != other.mw) return false
-		if (city != other.city) return false
-		if (region != other.region) return false
-		if (resolution != other.resolution) return false
+		return isHappenOn(other.date, other.hour)
+	}
+	
+	fun isHappenOn(date: String, hour: String): Boolean {
+		if (this.date != date) return false
+		if (this.hour != hour) return false
 		
 		return true
 	}
