@@ -3,21 +3,18 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginLeft="16dp"
-	android:layout_marginTop="16dp"
-	android:layout_marginRight="16dp"
 	app:cardCornerRadius="3dp">
 	
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:padding="16dp"
 		android:orientation="vertical">
 		
 		<LinearLayout
 			android:id="@+id/quake_detailed_layout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_margin="16dp"
 			android:orientation="horizontal">
 			
 			<TextView
@@ -34,15 +31,16 @@
 				android:textSize="18sp" />
 			
 			<LinearLayout
-				android:layout_width="match_parent"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:orientation="vertical"
 				android:paddingLeft="12dp"
 				android:layout_weight="4">
 				
-				<RelativeLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content">
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
 					
 					<TextView
 						android:id="@+id/tvHour"
@@ -53,17 +51,22 @@
 						android:text="SAAT"
 						android:textColor="@color/colorPrimary"
 						android:textSize="18sp" />
-				
-				
-				</RelativeLayout>
-				
-				<TextView
-					android:id="@+id/tvDate"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:fontFamily="@font/montserrat"
-					android:text="TARIH"
-					android:textSize="12sp" />
+					
+					<TextView
+						android:id="@+id/tvDate"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:fontFamily="@font/montserrat"
+						android:text="TARIH"
+						android:textSize="12sp" />
+					
+					<View
+						android:layout_width="match_parent"
+						android:layout_height="1dp"
+						android:background="@color/colorDivider"
+						android:layout_marginTop="8dp"
+						android:layout_marginBottom="8dp" />
+				</LinearLayout>
 				
 				<TextView
 					android:id="@+id/tvRegion"
@@ -144,7 +147,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:gravity="center">
+			android:gravity="center"
+			android:layout_marginTop="16dp">
 			
 			<ImageButton
 				android:layout_width="wrap_content"

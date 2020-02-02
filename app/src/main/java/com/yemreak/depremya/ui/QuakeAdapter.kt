@@ -96,16 +96,42 @@ class QuakeAdapter(val context: Context, private var quakes: List<Quake>) :
 				openMaps(view.ibLocationDetailed, lat, lng)
 				setMagColor(view.tvMl, ml.toDouble())
 			}
+			setQuakeSender(view.ibShare, quakes[pos])
 		}
 	}
 	
 	fun openMaps(imageButton: ImageButton, lat: String, lng: String) {
 		imageButton.setOnClickListener {
-			val uri = "https://maps.google.com/?q=${lat},${lng}&ll=${lat},${lng}&z=7"
+			val uri = context.getString(R.string.maps_url, lat, lng, lat, lng)
 			val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
 			intent.setPackage("com.google.android.apps.maps")
 			if (intent.resolveActivity(context.packageManager) != null)
 				context.startActivity(intent)
+		}
+	}
+	
+	fun setQuakeSender(imageButton: ImageButton, quake: Quake) {
+		imageButton.setOnClickListener {
+			val sendIntent: Intent = Intent().setAction(Intent.ACTION_SEND)
+			with(quake) {
+				sendIntent.putExtra(
+					Intent.EXTRA_TEXT,
+					context.getString(
+						R.string.share_content,
+						ml,
+						city,
+						region,
+						depth,
+						md,
+						mw,
+						context.getString(R.string.maps_url, lat, lng, lat, lng)
+					)
+				)
+			}
+			sendIntent.type = "text/plain"
+			var chooser: Intent = Intent.createChooser(sendIntent, "title")
+			if (sendIntent.resolveActivity(context.packageManager) != null)
+				context.startActivity(sendIntent)
 		}
 	}
 	
