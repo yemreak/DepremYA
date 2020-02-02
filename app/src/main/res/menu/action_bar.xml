@@ -6,5 +6,9 @@
 		android:icon="@drawable/ic_baseline_filter_list_24"
 		android:title="@string/filter"
 		app:showAsAction="always" />
-
+	<item
+		android:id="@+id/menu_item_notification"
+		android:icon="@drawable/ic_baseline_notifications_24"
+		android:title="@string/set_notification"
+		app:showAsAction="always"/>
 </menu>
