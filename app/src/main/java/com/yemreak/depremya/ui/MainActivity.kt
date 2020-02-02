@@ -19,24 +19,26 @@ import com.yemreak.depremya.db.entity.Quake
 import com.yemreak.depremya.viewmodel.QuakeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filter_dialog.view.*
+import kotlinx.android.synthetic.main.notification_dialog.view.*
 import kotlinx.android.synthetic.main.urgent_layout.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
+	
 	private var quakes: List<Quake> = emptyList()
 	private var selectedMag: Int = 0
+	private var selectedNotifMag: Int = 0
 	private var mainLayout: View? = null
 	private var urgentLayout: View? = null
 	private lateinit var quakeViewModel: QuakeViewModel
-
+	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		mainLayout = layoutInflater.inflate(R.layout.activity_main, null)
 		urgentLayout = layoutInflater.inflate(R.layout.urgent_layout, null)
 		getData()
 	}
-
+	
 	private fun getData() {
 		quakeViewModel = ViewModelProvider(this).get(QuakeViewModel::class.java)
 		quakeViewModel.allQuakes.observe(this, Observer {
@@ -54,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 		})
 		if (quakes.isEmpty()) refreshData()
 	}
-
+	
 	private fun refreshData() {
 		KandilliAPI.requestEarthQuakes(this) {
 			when {
@@ -77,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 			}
 		}
 	}
-
+	
 	private fun initRecyclerView() {
 		quake_recycler_view.layoutManager = LinearLayoutManager(this)
 		quake_recycler_view.adapter = QuakeAdapter(this, quakes)
@@ -86,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 			quake_refresh_layout.isRefreshing = false
 		}
 	}
-
+	
 	private fun initUrgentLayout(id: Int, text: Int) {
 		urgent_image?.setImageResource(id)
 		urgent_text?.setText(text)
@@ -95,17 +97,17 @@ class MainActivity : AppCompatActivity() {
 			urgent_refresh_layout.isRefreshing = false
 		}
 	}
-
-	private fun buildDialog() {
+	
+	private fun buildFilterDialog() {
 		val filterDialog = Dialog(this)
-		val viewGroup =
+		val view =
 			LayoutInflater
 				.from(filterDialog.context)
 				.inflate(R.layout.filter_dialog, null)
 		filterDialog
-			.setContentView(viewGroup)
+			.setContentView(view)
 		filterDialog.show()
-		viewGroup.tbgMag.addOnButtonCheckedListener { group, checkedId, isChecked ->
+		view.tbgMag.addOnButtonCheckedListener { group, checkedId, isChecked ->
 			selectedMag = checkedId
 			selectedMag = when (checkedId) {
 				R.id.btnGreater0 -> 0
@@ -125,28 +127,48 @@ class MainActivity : AppCompatActivity() {
 					setContentView(mainLayout)
 					(quake_recycler_view?.adapter as QuakeAdapter)
 						.setQuakesAndNotify(filtered)
-					// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
-					quakeViewModel.syncData(1, quakes.first())
 				}
 			}
 			filterDialog.dismiss()
-
-			// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
-			quakeViewModel.syncData(1, quakes.first())
 		}
 	}
-
+	
+	private fun buidNotificationDialog() {
+		val notifyDialog = Dialog(this)
+		val view =
+			LayoutInflater
+				.from(notifyDialog.context)
+				.inflate(R.layout.notification_dialog, null)
+		notifyDialog
+			.setContentView(view)
+		notifyDialog.show()
+		view.btgNotif.addOnButtonCheckedListener { group, checkedId, isChecked ->
+			selectedNotifMag = when (checkedId) {
+				// TODO: geliştirilmelidir, bildirim istememe durumu?
+				R.id.btnNoNotif -> 20
+				R.id.btnPlus5 -> 5
+				R.id.btnPlus6 -> 6
+				R.id.btnPlus7 -> 7
+				else -> 20
+			}
+			quakeViewModel.syncData(selectedNotifMag, quakes.first())
+			notifyDialog.dismiss()
+		}
+	}
+	
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 		menuInflater.inflate(R.menu.action_bar, menu)
 		return super.onCreateOptionsMenu(menu)
 	}
-
+	
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		if (item.itemId == R.id.menu_item_filter)
-			buildDialog()
+		when (item.itemId) {
+			R.id.menu_item_filter -> buildFilterDialog()
+			R.id.menu_item_notification -> buidNotificationDialog()
+		}
 		return super.onOptionsItemSelected(item)
 	}
-
+	
 	private fun checkConnection(): Boolean {
 		var connManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 		var networkInfo =

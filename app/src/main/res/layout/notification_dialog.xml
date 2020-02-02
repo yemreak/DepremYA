@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_height="wrap_content"
+	android:padding="16dp"
+	android:orientation="vertical"
+	android:gravity="center"
+	android:layout_gravity="center"
+	android:layout_centerVertical="true"
+	android:paddingRight="28dp"
+	android:paddingLeft="28dp"
+	android:paddingTop="48dp"
+	android:paddingBottom="48dp"
+	android:minHeight="250dp"
+	android:minWidth="250dp">
+	
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/set_notification"
+		android:layout_marginBottom="16dp"
+		android:textColor="@color/colorPrimary"
+		android:textSize="18sp" />
+	
+	<com.google.android.material.button.MaterialButtonToggleGroup
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:singleSelection="true"
+		android:orientation="vertical"
+		android:id="@+id/btgNotif">
+		
+		<com.google.android.material.button.MaterialButton
+			style="?attr/materialButtonOutlinedStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/no_notification"
+			app:shapeAppearance="@style/Cut"
+			app:strokeColor="@color/quake0_4"
+			android:textColor="@color/quake0_4"
+			android:insetTop="0dp"
+			android:insetBottom="0dp"
+			android:id="@+id/btnNoNotif" />
+		
+		
+		<com.google.android.material.button.MaterialButton
+			style="?attr/materialButtonOutlinedStyle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/greater5"
+			app:strokeColor="@color/quake5_5h"
+			android:textColor="@color/quake5_5h"
+			android:insetTop="0dp"
+			android:insetBottom="0dp"
+			android:id="@+id/btnPlus5" />
+		
+		<com.google.android.material.button.MaterialButton
+			style="?attr/materialButtonOutlinedStyle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/greater6"
+			app:strokeColor="@color/quake6_6h"
+			android:textColor="@color/quake6_6h"
+			android:insetTop="0dp"
+			android:insetBottom="0dp"
+			android:id="@+id/btnPlus6" />
+		
+		<com.google.android.material.button.MaterialButton
+			style="?attr/materialButtonOutlinedStyle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/greater7"
+			app:shapeAppearance="@style/Cut"
+			app:strokeColor="@color/quake7_8"
+			android:textColor="@color/quake7_8"
+			android:insetTop="0dp"
+			android:insetBottom="0dp"
+			android:id="@+id/btnPlus7" />
+	
+	</com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+</LinearLayout>
