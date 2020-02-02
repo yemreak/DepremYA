@@ -24,39 +24,41 @@ import kotlinx.android.synthetic.main.urgent_layout.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-	
+
 	private var quakes: List<Quake> = emptyList()
-	private var selectedMag: Int = 0
 	private var mainLayout: View? = null
+
+	/**
+	 * İlk çalıştırmada internet bağlantısı olmadığında aktif olacak olan layout
+	 */
 	private var urgentLayout: View? = null
-	
+
 	private lateinit var quakeViewModel: QuakeViewModel
-	
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		mainLayout = layoutInflater.inflate(R.layout.activity_main, null)
 		urgentLayout = layoutInflater.inflate(R.layout.urgent_layout, null)
 		getData()
 	}
-	
+
 	private fun getData() {
 		quakeViewModel = ViewModelProvider(this).get(QuakeViewModel::class.java)
 		quakeViewModel.allQuakes.observe(this, Observer {
 			it?.let {
 				if (it.isEmpty() && !checkConnection()) {
-					// ilk çalıştırma ve internet yok
 					setContentView(urgentLayout)
 					initUrgentLayout(R.drawable.no_internet, R.string.no_internet)
 				} else {
 					quakes = it
+
 					setContentView(mainLayout)
 					initRecyclerView()
 				}
 			}
 		})
-		if (quakes.isEmpty()) refreshData()
 	}
-	
+
 	private fun refreshData() {
 		KandilliAPI.requestEarthQuakes(this) {
 			when {
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 			}
 		}
 	}
-	
+
 	private fun initRecyclerView() {
 		quake_recycler_view.layoutManager = LinearLayoutManager(this)
 		quake_recycler_view.adapter = QuakeAdapter(this, quakes)
@@ -88,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 			quake_refresh_layout.isRefreshing = false
 		}
 	}
-	
+
 	private fun initUrgentLayout(id: Int, text: Int) {
 		urgent_image?.setImageResource(id)
 		urgent_text?.setText(text)
@@ -97,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 			urgent_refresh_layout.isRefreshing = false
 		}
 	}
-	
+
 	private fun buildFilterDialog() {
 		val filterDialog = Dialog(this)
 		val view =
@@ -107,9 +109,8 @@ class MainActivity : AppCompatActivity() {
 		filterDialog
 			.setContentView(view)
 		filterDialog.show()
-		view.tbgMag.addOnButtonCheckedListener { group, checkedId, isChecked ->
-			selectedMag = checkedId
-			selectedMag = when (checkedId) {
+		view.tbgMag.addOnButtonCheckedListener { _, checkedId, _ ->
+			val selectedMag = when (checkedId) {
 				R.id.btnGreater0 -> 0
 				R.id.btnGreater4 -> 4
 				R.id.btnGreater5 -> 5
@@ -132,7 +133,7 @@ class MainActivity : AppCompatActivity() {
 			filterDialog.dismiss()
 		}
 	}
-	
+
 	private fun buildNotificationDialog() {
 		val notifyDialog = Dialog(this)
 		val view =
@@ -153,21 +154,21 @@ class MainActivity : AppCompatActivity() {
 				R.id.btnPlus7 -> 7
 				else -> null
 			}
-			
+
 			if (selectedNotifyMag != null) {
 				quakeViewModel.stopSync()
 				quakeViewModel.syncData(selectedNotifyMag, quakes.first())
 			}
-			
+
 			notifyDialog.dismiss()
 		}
 	}
-	
+
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 		menuInflater.inflate(R.menu.action_bar, menu)
 		return super.onCreateOptionsMenu(menu)
 	}
-	
+
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
 			R.id.menu_item_filter -> buildFilterDialog()
@@ -175,7 +176,7 @@ class MainActivity : AppCompatActivity() {
 		}
 		return super.onOptionsItemSelected(item)
 	}
-	
+
 	private fun checkConnection(): Boolean {
 		var connManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 		var networkInfo =
