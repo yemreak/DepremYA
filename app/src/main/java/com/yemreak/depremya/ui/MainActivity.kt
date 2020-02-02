@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 			when {
 				it == null -> {
 					// layout'un değişmesi "Bad behaviour" olabilir, kullanıcı elindeki verileri kaybetmiş gibi hissedecek
+					// Toast daha verimli olabilir
 					// setContentView(urgentLayout)
 					// initUrgentLayout(R.drawable.no_internet, R.string.no_internet)
 					Toast.makeText(
@@ -130,10 +131,7 @@ class MainActivity : AppCompatActivity() {
 					quakeViewModel.syncData(1, quakes.first())
 				}
 			}
-			
 			filterDialog.dismiss()
-			
-			
 		}
 	}
 	
