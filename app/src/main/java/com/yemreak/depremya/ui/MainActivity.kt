@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yemreak.depremya.Globals
 import com.yemreak.depremya.R
 import com.yemreak.depremya.api.KandilliAPI
 import com.yemreak.depremya.db.entity.Quake
@@ -27,10 +26,13 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 	
 	private var quakes: List<Quake> = emptyList()
-	private var selectedMag: Int = 0
-	private var selectedNotifMag: Int = 0
 	private var mainLayout: View? = null
+	
+	/**
+	 * İlk çalıştırmada internet bağlantısı olmadığında aktif olacak olan layout
+	 */
 	private var urgentLayout: View? = null
+	
 	private lateinit var quakeViewModel: QuakeViewModel
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,20 +47,16 @@ class MainActivity : AppCompatActivity() {
 		quakeViewModel.allQuakes.observe(this, Observer {
 			it?.let {
 				if (it.isEmpty() && !checkConnection()) {
-					// ilk çalıştırma ve internet yok
 					setContentView(urgentLayout)
 					initUrgentLayout(R.drawable.no_internet, R.string.no_internet)
 				} else {
 					quakes = it
+					
 					setContentView(mainLayout)
 					initRecyclerView()
 				}
 			}
 		})
-		if (quakes.isEmpty()) {
-			if (Globals.quakes.isNotEmpty())
-				quakes = Globals.quakes
-		}
 	}
 	
 	private fun refreshData() {
@@ -111,9 +109,8 @@ class MainActivity : AppCompatActivity() {
 		filterDialog
 			.setContentView(view)
 		filterDialog.show()
-		view.tbgMag.addOnButtonCheckedListener { group, checkedId, isChecked ->
-			selectedMag = checkedId
-			selectedMag = when (checkedId) {
+		view.tbgMag.addOnButtonCheckedListener { _, checkedId, _ ->
+			val selectedMag = when (checkedId) {
 				R.id.btnGreater0 -> 0
 				R.id.btnGreater4 -> 4
 				R.id.btnGreater5 -> 5
@@ -137,7 +134,7 @@ class MainActivity : AppCompatActivity() {
 		}
 	}
 	
-	private fun buidNotificationDialog() {
+	private fun buildNotificationDialog() {
 		val notifyDialog = Dialog(this)
 		val view =
 			LayoutInflater
@@ -146,16 +143,23 @@ class MainActivity : AppCompatActivity() {
 		notifyDialog
 			.setContentView(view)
 		notifyDialog.show()
-		view.btgNotif.addOnButtonCheckedListener { group, checkedId, isChecked ->
-			selectedNotifMag = when (checkedId) {
-				// TODO: geliştirilmelidir, bildirim istememe durumu?
-				R.id.btnNoNotif -> 20
+		view.btgNotif.addOnButtonCheckedListener { _, checkedId, _ ->
+			val selectedNotifyMag = when (checkedId) {
+				R.id.btnNoNotif -> {
+					quakeViewModel.stopSync()
+					null
+				}
 				R.id.btnPlus5 -> 5
 				R.id.btnPlus6 -> 6
 				R.id.btnPlus7 -> 7
-				else -> 20
+				else -> null
 			}
-			quakeViewModel.syncData(selectedNotifMag, quakes.first())
+			
+			if (selectedNotifyMag != null) {
+				quakeViewModel.stopSync()
+				quakeViewModel.syncData(selectedNotifyMag, quakes.first())
+			}
+			
 			notifyDialog.dismiss()
 		}
 	}
@@ -168,7 +172,7 @@ class MainActivity : AppCompatActivity() {
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
 			R.id.menu_item_filter -> buildFilterDialog()
-			R.id.menu_item_notification -> buidNotificationDialog()
+			R.id.menu_item_notification -> buildNotificationDialog()
 		}
 		return super.onOptionsItemSelected(item)
 	}
