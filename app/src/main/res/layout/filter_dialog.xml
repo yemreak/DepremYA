@@ -36,8 +36,8 @@
 			android:layout_height="wrap_content"
 			android:text="@string/greater0"
 			app:shapeAppearance="@style/Cut"
-			app:strokeColor="@color/quake0_3"
-			android:textColor="@color/quake0_3"
+			app:strokeColor="@color/quake0_4"
+			android:textColor="@color/quake0_4"
 			android:id="@+id/btnGreater0"
 			android:insetTop="0dp"
 			android:insetBottom="0dp" />

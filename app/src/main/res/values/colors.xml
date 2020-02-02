@@ -13,10 +13,8 @@
 	<color name="colorDivider">#BDBDBD</color>
 	<color name="background">#e8eaf6</color>
 	<color name="backgroundRed">#f6e8e8</color>
-	<!-- 0 - 3 -->
-	<color name="quake0_3">#85D979</color>
-	<!-- 3 - 4 -->
-	<color name="quake3_4">#F1E071</color>
+	<!-- 0 - 4 -->
+	<color name="quake0_4">#1fab89</color>
 	<!-- 4 - 5 -->
 	<color name="quake4_5">#F1CC71</color>
 	<!-- 5 - 5.5 -->
@@ -31,10 +29,4 @@
 	<color name="quake7_8">#a51d0d</color>
 	<!-- otherwise -->
 	<color name="quakeMax">#76140a</color>
-	<array name="connecting_colors">
-		<item>@color/colorAccent</item>
-		<item>@color/colorPrimary</item>
-		<item>@color/quake5h_6</item>
-		<item>@color/quake6h_7</item>
-	</array>
 </resources>
