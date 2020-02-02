@@ -19,7 +19,14 @@ import java.util.concurrent.TimeUnit
 class QuakeViewModel(application: Application) : AndroidViewModel(application) {
 	
 	companion object {
+		
+		/**
+		 * **Her 30dk içerisinde** amacıyla kullanılır
+		 */
+		private const val NOTIFY_PERIODIC_INTERVAL_MINUTE: Long = 30
+		
 		private val TAG = QuakeViewModel::class.java.simpleName
+		
 	}
 	
 	private val repository: QuakeRepository
@@ -41,28 +48,36 @@ class QuakeViewModel(application: Application) : AndroidViewModel(application) {
 		repository.insert(quakes.toTypedArray())
 	}
 	
+	fun stopSync() {
+		workManager.cancelAllWork()
+	}
+	
 	
 	/**
-	 * Arka planda depremleri takip eder. Şiddeti [notifyLimit]'den yüksek olan depremler hakkında bildirim verir.
-	 *
-	 * Zaten görülen depremler hakkında bildirim vermemek için [lastQuake] bilgisini alır
+	 * Arka planda depremleri verilen [intervalTime] ya da [NOTIFY_PERIODIC_INTERVAL_MINUTE] sıklığında takip eder.
+	 * Şiddeti [notifyLimit]'den yüksek olan depremler hakkında bildirim verir.
+	 * Zaten görülen depremler hakkında bildirim vermemek için [lastQuake] bilgisini alır.
 	 */
-	fun syncData(notifyLimit: Int, lastQuake: Quake?) {
+	fun syncData(
+		notifyLimit: Int,
+		lastQuake: Quake,
+		intervalTime: Long = NOTIFY_PERIODIC_INTERVAL_MINUTE
+	) {
 		Log.i(TAG, "syncData: Deprem takim işçisi aktif ediliyor")
 		
 		workManager.enqueue(
 			PeriodicWorkRequest.Builder(
 				SyncCoWorker::class.java,
-				PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
+				intervalTime,
 				TimeUnit.MILLISECONDS,
-				PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS,
-				TimeUnit.MILLISECONDS
+				intervalTime / 2,
+				TimeUnit.MINUTES
 			)
 				.setInputData(
 					Data.Builder()
 						.putInt(SyncCoWorker.KEY_NOTIFY_LIMIT, notifyLimit)
-						.putString(SyncCoWorker.KEY_QUAKE_DATE, lastQuake?.date)
-						.putString(SyncCoWorker.KEY_QUAKE_HOUR, lastQuake?.hour)
+						.putString(SyncCoWorker.KEY_QUAKE_DATE, lastQuake.date)
+						.putString(SyncCoWorker.KEY_QUAKE_HOUR, lastQuake.hour)
 						.build()
 				)
 				.build()
