@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -67,10 +66,9 @@ class MainActivity : AppCompatActivity() {
 					// initUrgentLayout(R.drawable.no_internet, R.string.no_internet)
 					Toast.makeText(
 						this,
-						"Bağlantı başarısız",
+						R.string.conn_fail,
 						Toast.LENGTH_SHORT
 					).show()
-					Log.e("ESMA", "null")
 				}
 				quakes.isEmpty() || it.first() != quakes.first() -> {
 					setContentView(mainLayout)
@@ -117,12 +115,22 @@ class MainActivity : AppCompatActivity() {
 				R.id.btnGreater6 -> 6
 				else -> 0
 			}
-			if (quakes.isNotEmpty()) {
-				(quake_recycler_view?.adapter as QuakeAdapter)
-					.setQuakesAndNotify(quakes.filter { it.ml.toDouble() >= selectedMag })
-				// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
-				quakeViewModel.syncData(1, quakes.first())
+			val filtered = quakes.filter {
+				(it.ml.toDouble() >= selectedMag)
 			}
+			if (filtered.isEmpty()) {
+				setContentView(urgentLayout)
+				initUrgentLayout(R.drawable.magnifier, R.string.no_result)
+			} else {
+				if (quakes.isNotEmpty()) {
+					setContentView(mainLayout)
+					(quake_recycler_view?.adapter as QuakeAdapter)
+						.setQuakesAndNotify(filtered)
+					// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
+					quakeViewModel.syncData(1, quakes.first())
+				}
+			}
+			
 			filterDialog.dismiss()
 			
 			
