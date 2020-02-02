@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		
 		setContentView(R.layout.activity_main)
+		
 		initRecyclerView()
 		
 		quakeViewModel = ViewModelProvider(this).get(QuakeViewModel::class.java)
@@ -38,18 +38,25 @@ class MainActivity : AppCompatActivity() {
 			}
 		})
 		
+		if (quakes.isEmpty()) refreshData()
+		
 		quake_refresh_layout.setOnRefreshListener {
-			KandilliAPI.requestEarthQuakes(this) {
-				when {
-					it == null -> Toast.makeText(
+			refreshData()
+			quake_refresh_layout.isRefreshing = false
+		}
+	}
+	
+	private fun refreshData() {
+		KandilliAPI.requestEarthQuakes(this) {
+			when {
+				it == null -> // TODO: 2/2/2020 Asmaa Mirkhan - Bu alana internet olmadığındaki UI gelecek
+					Toast.makeText(
 						this,
 						"Bağlantı başarısız",
 						Toast.LENGTH_SHORT
 					).show()
-					quakes.isEmpty() || it.first() != quakes.first() ->
-						quakeViewModel.refreshQuakes(it)
-				}
-				quake_refresh_layout.isRefreshing = false
+				quakes.isEmpty() || it.first() != quakes.first() ->
+					quakeViewModel.refreshQuakes(it)
 			}
 		}
 	}
@@ -80,6 +87,9 @@ class MainActivity : AppCompatActivity() {
 			(quake_recycler_view.adapter as QuakeAdapter)
 				.setQuakesAndNotify(quakes.filter { it.ml.toDouble() >= selectedMag })
 			filterDialog.dismiss()
+			
+			// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
+			quakeViewModel.syncData(1, quakes.first())
 		}
 	}
 	

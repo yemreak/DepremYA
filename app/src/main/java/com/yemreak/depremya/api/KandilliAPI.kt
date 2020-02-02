@@ -1,7 +1,6 @@
 package com.yemreak.depremya.api
 
 import android.content.Context
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -37,14 +36,8 @@ abstract class KandilliAPI {
 				Response.Listener<String> { response ->
 					onResponse(parseResponse(response.replace("Ý", "İ")))
 				},
-				Response.ErrorListener {
-					Log.e(
-						TAG,
-						"requestEarthQuakes: İstek atılamadı $URL",
-						it
-					)
-					onResponse(null)
-				})
+				Response.ErrorListener { onResponse(null) }
+			)
 			
 			queue.add(stringRequest)
 		}

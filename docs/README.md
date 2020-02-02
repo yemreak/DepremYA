@@ -2,6 +2,8 @@
 
 🕵️‍♂️ Depremi yakından analiz eden mobil uygulama
 
-## 🛒 API Hizmeti
+## ⭐ Uygulamadan Görüntüler
 
-👨‍💻 [`./kandilliData.js`](./kandilliData.js) yapısına uygun Kotlin API kurulacaktır.
+![](../res/notification.png)
+
+![](../res/pic1.png) ![](../res/pic2.png) ![](../res/pic3.png)
