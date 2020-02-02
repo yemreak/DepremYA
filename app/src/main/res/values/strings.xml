@@ -19,4 +19,6 @@
 	<string name="no_internet">Üzgünüz\nİnternete bağlanamadı!</string>
 	<string name="no_result">Aradığınz kriterlere uygun sonuç bulunamadı!</string>
 	<string name="conn_fail">Bağlantı başarısız</string>
+	<string name="maps_url">"https://maps.google.com/?q=%s,%s&amp;ll=%s,%s&amp;z=7"</string>
+	<string name="share_content">Deprem Detayları:\nBüyüklük: %s\nŞehir: %s\nBölge: %s\nDerinlik: %s\nMD: %s,MW: %s\nKonum: %s</string>
 </resources>

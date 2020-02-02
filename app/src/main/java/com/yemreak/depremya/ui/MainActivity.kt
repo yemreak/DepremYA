@@ -23,22 +23,20 @@ import kotlinx.android.synthetic.main.urgent_layout.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-	
+
 	private var quakes: List<Quake> = emptyList()
 	private var selectedMag: Int = 0
 	private var mainLayout: View? = null
 	private var urgentLayout: View? = null
-
 	private lateinit var quakeViewModel: QuakeViewModel
-	
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-
 		mainLayout = layoutInflater.inflate(R.layout.activity_main, null)
 		urgentLayout = layoutInflater.inflate(R.layout.urgent_layout, null)
 		getData()
 	}
-	
+
 	private fun getData() {
 		quakeViewModel = ViewModelProvider(this).get(QuakeViewModel::class.java)
 		quakeViewModel.allQuakes.observe(this, Observer {
@@ -56,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 		})
 		if (quakes.isEmpty()) refreshData()
 	}
-	
+
 	private fun refreshData() {
 		KandilliAPI.requestEarthQuakes(this) {
 			when {
@@ -79,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 			}
 		}
 	}
-	
+
 	private fun initRecyclerView() {
 		quake_recycler_view.layoutManager = LinearLayoutManager(this)
 		quake_recycler_view.adapter = QuakeAdapter(this, quakes)
@@ -88,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 			quake_refresh_layout.isRefreshing = false
 		}
 	}
-	
+
 	private fun initUrgentLayout(id: Int, text: Int) {
 		urgent_image?.setImageResource(id)
 		urgent_text?.setText(text)
@@ -97,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 			urgent_refresh_layout.isRefreshing = false
 		}
 	}
-	
+
 	private fun buildDialog() {
 		val filterDialog = Dialog(this)
 		val viewGroup =
@@ -131,25 +129,24 @@ class MainActivity : AppCompatActivity() {
 					quakeViewModel.syncData(1, quakes.first())
 				}
 			}
-
 			filterDialog.dismiss()
-			
+
 			// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
 			quakeViewModel.syncData(1, quakes.first())
 		}
 	}
-	
+
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 		menuInflater.inflate(R.menu.action_bar, menu)
 		return super.onCreateOptionsMenu(menu)
 	}
-	
+
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		if (item.itemId == R.id.menu_item_filter)
 			buildDialog()
 		return super.onOptionsItemSelected(item)
 	}
-	
+
 	private fun checkConnection(): Boolean {
 		var connManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 		var networkInfo =
