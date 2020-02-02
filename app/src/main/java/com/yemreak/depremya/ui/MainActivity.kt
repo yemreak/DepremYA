@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yemreak.depremya.Globals
 import com.yemreak.depremya.R
 import com.yemreak.depremya.api.KandilliAPI
 import com.yemreak.depremya.db.entity.Quake
@@ -54,7 +55,10 @@ class MainActivity : AppCompatActivity() {
 				}
 			}
 		})
-		if (quakes.isEmpty()) refreshData()
+		if (quakes.isEmpty()) {
+			if (Globals.quakes.isNotEmpty())
+				quakes = Globals.quakes
+		}
 	}
 	
 	private fun refreshData() {
