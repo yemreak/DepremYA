@@ -23,12 +23,13 @@ import kotlinx.android.synthetic.main.quake_item.view.tvRegion
 
 class QuakeAdapter(val context: Context, private var quakes: List<Quake>) :
 	RecyclerView.Adapter<QuakeAdapter.QuakeHolder>() {
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuakeAdapter.QuakeHolder {
 		val view: View =
 			LayoutInflater.from(parent.context).inflate(R.layout.quake_item, parent, false)
 		return QuakeHolder(view)
 	}
-	
+
 	override fun onBindViewHolder(holder: QuakeAdapter.QuakeHolder, position: Int) {
 		with(quakes[position]) {
 			holder.tvDate.text = date
@@ -44,15 +45,15 @@ class QuakeAdapter(val context: Context, private var quakes: List<Quake>) :
 			setMagColor(holder.tvMl, ml.toDouble())
 		}
 	}
-	
+
 	fun setQuakesAndNotify(quakes: List<Quake>) {
 		this.quakes = quakes
 		notifyDataSetChanged()
 	}
-	
-	
+
+
 	override fun getItemCount() = quakes.size
-	
+
 	inner class QuakeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 		val tvDate: TextView = itemView.tvDate
 		val tvHour: TextView = itemView.tvHour
@@ -61,7 +62,7 @@ class QuakeAdapter(val context: Context, private var quakes: List<Quake>) :
 		val tvRegion: TextView = itemView.tvRegion
 		val ibLocation: ImageButton = itemView.ibLocation
 		val view: View? = null
-		
+
 		init {
 			itemView.setOnClickListener {
 				val pos = adapterPosition
@@ -76,7 +77,7 @@ class QuakeAdapter(val context: Context, private var quakes: List<Quake>) :
 				filterDialog.show()
 			}
 		}
-		
+
 		private fun initDialog(view: View, pos: Int) {
 			with(quakes[pos]) {
 				view.tvMl.text = ml
@@ -98,7 +99,7 @@ class QuakeAdapter(val context: Context, private var quakes: List<Quake>) :
 			setQuakeSender(view.ibShare, quakes[pos])
 		}
 	}
-	
+
 	fun openMaps(imageButton: ImageButton, lat: String, lng: String) {
 		imageButton.setOnClickListener {
 			val uri = context.getString(R.string.maps_url, lat, lng, lat, lng)
@@ -108,7 +109,7 @@ class QuakeAdapter(val context: Context, private var quakes: List<Quake>) :
 				context.startActivity(intent)
 		}
 	}
-	
+
 	fun setQuakeSender(imageButton: ImageButton, quake: Quake) {
 		imageButton.setOnClickListener {
 			val sendIntent: Intent = Intent().setAction(Intent.ACTION_SEND)
@@ -128,12 +129,12 @@ class QuakeAdapter(val context: Context, private var quakes: List<Quake>) :
 				)
 			}
 			sendIntent.type = "text/plain"
-			var chooser: Intent = Intent.createChooser(sendIntent, context.getString(R.string.send))
+			var chooser: Intent = Intent.createChooser(sendIntent, "title")
 			if (sendIntent.resolveActivity(context.packageManager) != null)
 				context.startActivity(sendIntent)
 		}
 	}
-	
+
 	private fun setMagColor(textView: TextView, mag: Double) {
 		val color = when {
 			mag < 4 -> R.color.quake0_4

@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 			}
 		}
 	}
-	
+
 	private fun initRecyclerView() {
 		quake_recycler_view.layoutManager = LinearLayoutManager(this)
 		quake_recycler_view.adapter = QuakeAdapter(this, quakes)
@@ -132,6 +132,9 @@ class MainActivity : AppCompatActivity() {
 				}
 			}
 			filterDialog.dismiss()
+
+			// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
+			quakeViewModel.syncData(1, quakes.first())
 		}
 	}
 	
@@ -162,7 +165,7 @@ class MainActivity : AppCompatActivity() {
 		menuInflater.inflate(R.menu.action_bar, menu)
 		return super.onCreateOptionsMenu(menu)
 	}
-	
+
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
 			R.id.menu_item_filter -> buildFilterDialog()
