@@ -27,18 +27,13 @@ class QuakeAdapter(private val context: Context, private var quakes: List<Quake>
 		with(quakes[position]) {
 			holder.tvDate.text = date
 			holder.tvHour.text = context.getString(R.string.str_hour, hour)
-			holder.tvDepth.text = context.getString(R.string.str_depth, depth)
-			holder.tvMd.text = context.getString(R.string.str_md, md)
 			holder.tvMl.text = ml
-			holder.tvMw.text = context.getString(R.string.str_mw, mw)
 			holder.tvCity.text = city
 			if (region == "")
 				holder.tvRegion.text = context.getString(R.string.str_region, " - ")
 			else
 				holder.tvRegion.text =
 					context.getString(R.string.str_region, region)
-			holder.tvResolution.text =
-				context.getString(R.string.str_resolution, resolution)
 			
 			holder.ibLocation.setOnClickListener {
 				val uri = "https://maps.google.com/?q=${lat},${lng}&ll=${lat},${lng}&z=7"
@@ -79,13 +74,9 @@ class QuakeAdapter(private val context: Context, private var quakes: List<Quake>
 	class QuakeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 		val tvDate: TextView = itemView.tvDate
 		val tvHour: TextView = itemView.tvHour
-		val tvDepth: TextView = itemView.tvDepth
-		val tvMd: TextView = itemView.tvMd
 		val tvMl: TextView = itemView.tvMl
-		val tvMw: TextView = itemView.tvMw
 		val tvCity: TextView = itemView.tvCity
 		val tvRegion: TextView = itemView.tvRegion
-		val tvResolution: TextView = itemView.tvResolution
 		val ibLocation: ImageButton = itemView.ibLocation
 	}
 	
