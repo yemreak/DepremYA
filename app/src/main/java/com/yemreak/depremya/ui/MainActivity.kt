@@ -8,57 +8,67 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yemreak.depremya.R
 import com.yemreak.depremya.api.KandilliAPI
-import com.yemreak.depremya.entity.Quake
+import com.yemreak.depremya.db.entity.Quake
+import com.yemreak.depremya.viewmodel.QuakeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filter_dialog.view.*
 import kotlinx.android.synthetic.main.urgent_layout.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+	
 	private var quakes: List<Quake> = emptyList()
 	private var selectedMag: Int = 0
-	private var mainLayout: View? = null
-	private var urgentLayout: View? = null
+	
+	private lateinit var quakeViewModel: QuakeViewModel
+	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		mainLayout = layoutInflater.inflate(R.layout.activity_main, null)
-		urgentLayout = layoutInflater.inflate(R.layout.urgent_layout, null)
-		chooseLayout()
-	}
-	
-	private fun chooseLayout() {
-		if (checkConnection()) {
-			setContentView(mainLayout)
-			initRecyclerView()
-			quake_refresh_layout.setOnRefreshListener {
-				chooseLayout()
+		setContentView(R.layout.activity_main)
+		
+		initRecyclerView()
+		
+		quakeViewModel = ViewModelProvider(this).get(QuakeViewModel::class.java)
+		quakeViewModel.allQuakes.observe(this, Observer {
+			it?.let {
+				quakes = it
+				(quake_recycler_view.adapter as QuakeAdapter).setQuakesAndNotify(quakes)
 			}
-		} else {
-			setContentView(urgentLayout)
-			initUrgentLayout(R.drawable.no_internet, R.string.no_internet)
-			urgent_refresh_layout.isRefreshing = false
-			urgent_refresh_layout.setOnRefreshListener {
-				chooseLayout()
-			}
+		})
+		
+		if (quakes.isEmpty()) refreshData()
+		
+		quake_refresh_layout.setOnRefreshListener {
+			refreshData()
+			quake_refresh_layout.isRefreshing = false
 		}
 	}
 	
-	private fun initUrgentLayout(id: Int, text: Int) {
-		urgent_image?.setImageResource(id)
-		urgent_text?.setText(text)
+	private fun refreshData() {
+		KandilliAPI.requestEarthQuakes(this) {
+			when {
+				it == null -> // TODO: 2/2/2020 Asmaa Mirkhan - Bu alana internet olmadığındaki UI gelecek
+					Toast.makeText(
+						this,
+						"Bağlantı başarısız",
+						Toast.LENGTH_SHORT
+					).show()
+				quakes.isEmpty() || it.first() != quakes.first() ->
+					quakeViewModel.refreshQuakes(it)
+			}
+		}
 	}
 	
 	private fun initRecyclerView() {
 		quake_recycler_view.layoutManager = LinearLayoutManager(this)
-		KandilliAPI.requestEarthQuakes(this) {
-			quakes = it
-			quake_recycler_view.adapter = QuakeAdapter(this, it)
-			quake_refresh_layout.isRefreshing = false
-		}
+		quake_recycler_view.adapter = QuakeAdapter(this, quakes)
 	}
 	
 	private fun buildDialog() {
@@ -79,16 +89,12 @@ class MainActivity : AppCompatActivity() {
 				R.id.btnGreater6 -> 6
 				else -> 0
 			}
-			val filtered = quakes.filter {
-				(it.ml.toDouble() >= selectedMag)
-			}
-			if (filtered.isEmpty()) {
-				setContentView(urgentLayout)
-				initUrgentLayout(R.drawable.magnifier, R.string.no_result)
-			} else {
-				quake_recycler_view.adapter = QuakeAdapter(this, filtered)
-			}
+			(quake_recycler_view.adapter as QuakeAdapter)
+				.setQuakesAndNotify(quakes.filter { it.ml.toDouble() >= selectedMag })
 			filterDialog.dismiss()
+			
+			// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
+			quakeViewModel.syncData(1, quakes.first())
 		}
 	}
 	
