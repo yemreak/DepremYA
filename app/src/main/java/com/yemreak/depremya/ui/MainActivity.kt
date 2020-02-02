@@ -28,10 +28,12 @@ class MainActivity : AppCompatActivity() {
 	private var selectedMag: Int = 0
 	private var mainLayout: View? = null
 	private var urgentLayout: View? = null
+
 	private lateinit var quakeViewModel: QuakeViewModel
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+
 		mainLayout = layoutInflater.inflate(R.layout.activity_main, null)
 		urgentLayout = layoutInflater.inflate(R.layout.urgent_layout, null)
 		getData()
@@ -129,7 +131,11 @@ class MainActivity : AppCompatActivity() {
 					quakeViewModel.syncData(1, quakes.first())
 				}
 			}
+
 			filterDialog.dismiss()
+			
+			// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
+			quakeViewModel.syncData(1, quakes.first())
 		}
 	}
 	
