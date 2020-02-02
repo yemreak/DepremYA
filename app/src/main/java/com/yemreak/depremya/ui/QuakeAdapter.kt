@@ -65,7 +65,6 @@ class QuakeAdapter(val context: Context, private var quakes: List<Quake>) :
 		init {
 			itemView.setOnClickListener {
 				val pos = adapterPosition
-				//val sendInent = Intent().setAction(Intent.ACTION_SEND)
 				val filterDialog = Dialog(it.context)
 				val view =
 					LayoutInflater
