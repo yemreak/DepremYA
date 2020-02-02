@@ -47,10 +47,9 @@ class MainActivity : AppCompatActivity() {
 					setContentView(urgentLayout)
 					initUrgentLayout(R.drawable.no_internet, R.string.no_internet)
 				} else {
+					quakes = it
 					setContentView(mainLayout)
 					initRecyclerView()
-					quakes = it
-					(quake_recycler_view.adapter as QuakeAdapter).setQuakesAndNotify(quakes)
 				}
 			}
 		})
