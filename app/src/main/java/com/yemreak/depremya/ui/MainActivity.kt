@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
 		mainLayout = layoutInflater.inflate(R.layout.activity_main, null)
 		urgentLayout = layoutInflater.inflate(R.layout.urgent_layout, null)
 		getData()
