@@ -128,7 +128,7 @@ class QuakeAdapter(val context: Context, private var quakes: List<Quake>) :
 				)
 			}
 			sendIntent.type = "text/plain"
-			var chooser: Intent = Intent.createChooser(sendIntent, "title")
+			var chooser: Intent = Intent.createChooser(sendIntent, context.getString(R.string.send))
 			if (sendIntent.resolveActivity(context.packageManager) != null)
 				context.startActivity(sendIntent)
 		}

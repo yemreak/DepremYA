@@ -147,6 +147,7 @@ class MainActivity : AppCompatActivity() {
 		notifyDialog.show()
 		view.btgNotif.addOnButtonCheckedListener { group, checkedId, isChecked ->
 			selectedNotifMag = when (checkedId) {
+				// TODO: geliştirilmelidir, bildirim istememe durumu?
 				R.id.btnNoNotif -> 20
 				R.id.btnPlus5 -> 5
 				R.id.btnPlus6 -> 6
