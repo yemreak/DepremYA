@@ -8,8 +8,6 @@ public class Globals {
 		public var quakes: List<Quake> = emptyList()
 	}
 	
-	private var quakes: List<Quake> = emptyList()
-	
 	/*object Singleton {
 		fun getInstance(): Globals {
 			if (INSTANCE == null) {
