@@ -61,8 +61,8 @@ class QuakeViewModel(application: Application) : AndroidViewModel(application) {
 				.setInputData(
 					Data.Builder()
 						.putInt(SyncCoWorker.KEY_NOTIFY_LIMIT, notifyLimit)
-						.putString(SyncCoWorker.KEY_QUAKE_DATE, lastQuake.date)
-						.putString(SyncCoWorker.KEY_QUAKE_HOUR, lastQuake.hour)
+						.putString(SyncCoWorker.KEY_QUAKE_DATE, lastQuake?.date)
+						.putString(SyncCoWorker.KEY_QUAKE_HOUR, lastQuake?.hour)
 						.build()
 				)
 				.build()

@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -26,42 +27,56 @@ class MainActivity : AppCompatActivity() {
 	
 	private var quakes: List<Quake> = emptyList()
 	private var selectedMag: Int = 0
-	
+	private var mainLayout: View? = null
+	private var urgentLayout: View? = null
 	private lateinit var quakeViewModel: QuakeViewModel
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-		
-		initRecyclerView()
-		
+		mainLayout = layoutInflater.inflate(R.layout.activity_main, null)
+		urgentLayout = layoutInflater.inflate(R.layout.urgent_layout, null)
+		getData()
+	}
+	
+	private fun getData() {
 		quakeViewModel = ViewModelProvider(this).get(QuakeViewModel::class.java)
 		quakeViewModel.allQuakes.observe(this, Observer {
 			it?.let {
-				quakes = it
-				(quake_recycler_view.adapter as QuakeAdapter).setQuakesAndNotify(quakes)
+				if (it.isEmpty() && !checkConnection()) {
+					// ilk çalıştırma ve internet yok
+					setContentView(urgentLayout)
+					initUrgentLayout(R.drawable.no_internet, R.string.no_internet)
+				} else {
+					setContentView(mainLayout)
+					initRecyclerView()
+					quakes = it
+					(quake_recycler_view.adapter as QuakeAdapter).setQuakesAndNotify(quakes)
+				}
 			}
 		})
-		
 		if (quakes.isEmpty()) refreshData()
-		
-		quake_refresh_layout.setOnRefreshListener {
-			refreshData()
-			quake_refresh_layout.isRefreshing = false
-		}
 	}
 	
 	private fun refreshData() {
 		KandilliAPI.requestEarthQuakes(this) {
 			when {
-				it == null -> // TODO: 2/2/2020 Asmaa Mirkhan - Bu alana internet olmadığındaki UI gelecek
+				it == null -> {
+					// layout'un değişmesi "Bad behaviour" olabilir, kullanıcı elindeki verileri kaybetmiş gibi hissedecek
+					// setContentView(urgentLayout)
+					// initUrgentLayout(R.drawable.no_internet, R.string.no_internet)
 					Toast.makeText(
 						this,
 						"Bağlantı başarısız",
 						Toast.LENGTH_SHORT
 					).show()
-				quakes.isEmpty() || it.first() != quakes.first() ->
+					Log.e("ESMA", "null")
+				}
+				quakes.isEmpty() || it.first() != quakes.first() -> {
+					setContentView(mainLayout)
+					initRecyclerView()
 					quakeViewModel.refreshQuakes(it)
+				}
 			}
 		}
 	}
@@ -69,6 +84,19 @@ class MainActivity : AppCompatActivity() {
 	private fun initRecyclerView() {
 		quake_recycler_view.layoutManager = LinearLayoutManager(this)
 		quake_recycler_view.adapter = QuakeAdapter(this, quakes)
+		quake_refresh_layout.setOnRefreshListener {
+			refreshData()
+			quake_refresh_layout.isRefreshing = false
+		}
+	}
+	
+	private fun initUrgentLayout(id: Int, text: Int) {
+		urgent_image?.setImageResource(id)
+		urgent_text?.setText(text)
+		urgent_refresh_layout.setOnRefreshListener {
+			refreshData()
+			urgent_refresh_layout.isRefreshing = false
+		}
 	}
 	
 	private fun buildDialog() {
@@ -89,12 +117,15 @@ class MainActivity : AppCompatActivity() {
 				R.id.btnGreater6 -> 6
 				else -> 0
 			}
-			(quake_recycler_view.adapter as QuakeAdapter)
-				.setQuakesAndNotify(quakes.filter { it.ml.toDouble() >= selectedMag })
+			if (quakes.isNotEmpty()) {
+				(quake_recycler_view?.adapter as QuakeAdapter)
+					.setQuakesAndNotify(quakes.filter { it.ml.toDouble() >= selectedMag })
+				// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
+				quakeViewModel.syncData(1, quakes.first())
+			}
 			filterDialog.dismiss()
 			
-			// TODO: 2/2/2020 Asmaa Mirkhan - Bunu kaldırıp kendi arayüzünden alınan limit ile bu metodu çalıştır
-			quakeViewModel.syncData(1, quakes.first())
+			
 		}
 	}
 	
@@ -109,7 +140,7 @@ class MainActivity : AppCompatActivity() {
 		return super.onOptionsItemSelected(item)
 	}
 	
-	fun checkConnection(): Boolean {
+	private fun checkConnection(): Boolean {
 		var connManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 		var networkInfo =
 			Objects.requireNonNull(connManager).getNetworkInfo(ConnectivityManager.TYPE_WIFI)
