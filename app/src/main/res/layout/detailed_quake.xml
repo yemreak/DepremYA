@@ -157,12 +157,12 @@
 				android:layout_alignParentStart="true"
 				android:id="@+id/ibShare"
 				android:background="?android:attr/selectableItemBackground"
-				android:paddingEnd="16dp" />
+				android:layout_marginEnd="16dp" />
 			
 			<ImageButton
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:src="@drawable/ic_baseline_map_24"
+				android:src="@drawable/ic_location"
 				android:id="@+id/ibLocationDetailed"
 				android:layout_toEndOf="@id/ibShare"
 				android:background="?android:attr/selectableItemBackground" />
