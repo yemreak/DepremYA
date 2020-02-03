@@ -102,7 +102,7 @@
 				android:layout_centerHorizontal="true"
 				android:layout_marginEnd="-1dp"
 				android:background="?android:attr/selectableItemBackground"
-				android:src="@drawable/ic_baseline_map_24" />
+				android:src="@drawable/ic_location" />
 		</RelativeLayout>
 	</LinearLayout>
 </androidx.cardview.widget.CardView>
