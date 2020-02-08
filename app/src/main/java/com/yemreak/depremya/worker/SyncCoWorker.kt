@@ -15,6 +15,7 @@ import com.yemreak.depremya.api.NotificationAPI
 import com.yemreak.depremya.db.entity.Quake
 import com.yemreak.depremya.ui.MainActivity
 import kotlinx.coroutines.coroutineScope
+import java.lang.Exception
 
 class SyncCoWorker(private val context: Context, params: WorkerParameters) :
 	CoroutineWorker(context, params) {
@@ -54,8 +55,8 @@ class SyncCoWorker(private val context: Context, params: WorkerParameters) :
 			
 			Result.success()
 			
-		} catch (throwable: Throwable) {
-			Log.e(TAG, "doWork: Hata oluştu", throwable)
+		} catch (exception: Exception) {
+			Log.e(TAG, "doWork: Hata oluştu", exception)
 			Result.failure()
 		}
 	}
